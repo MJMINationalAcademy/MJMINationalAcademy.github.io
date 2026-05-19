@@ -3,332 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.J.M.I National Academy | Elite Portal</title>
-    <!-- Premium Fonts -->
+    <title>M.J.M.I National Academy | Secured Portal</title>
     <link href="https://googleapis.com" rel="stylesheet">
-    
     <style>
-        :root {
-            --primary: #001529; /* Deep Midnight Blue */
-            --accent: #C5A059;  /* Brushed Gold */
-            --bg-light: #F0F2F5;
-            --white: #ffffff;
-            --text-main: #1A1A1A;
-            --text-secondary: #666666;
-        }
+        :root { --primary: #001529; --accent: #C5A059; --bg-body: #F4F7F6; --white: #ffffff; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background-color: var(--bg-body); overflow-x: hidden; }
 
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            overflow-x: hidden;
-        }
-
-        /* --- Elite Professional Header --- */
         header {
-            background: var(--primary);
-            padding: 80px 20px;
-            text-align: center;
-            border-bottom: 4px solid var(--accent);
-            position: relative;
+            background: linear-gradient(rgba(0, 21, 41, 0.75), rgba(0, 21, 41, 0.75)), url('image1.jpg');
+            background-size: cover; background-position: center; padding: 100px 5%; 
+            border-bottom: 6px solid var(--accent); display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;
         }
+        .academy-logo { width: 150px; height: 150px; border-radius: 15px; border: 4px solid var(--accent); cursor: pointer; transition: 0.3s; box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+        .academy-logo:hover { transform: scale(1.05); border-color: white; }
+        
+        .header-text-container { text-align: left; max-width: 800px; }
+        .academy-name { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 6vw, 4.2rem); margin: 0; color: var(--white); letter-spacing: 4px; text-transform: uppercase; line-height: 1.2; }
+        .sub-address { color: var(--accent); font-size: 1.2rem; letter-spacing: 6px; margin-top: 15px; text-transform: uppercase; font-weight: 400; }
 
-        .academy-name {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(1.8rem, 5vw, 3.5rem);
-            margin: 0;
-            color: var(--white);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            /* Professional Glow */
-            text-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
-            animation: elegantShine 4s ease-in-out infinite alternate;
-        }
+        .sticky-nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); z-index: 1000; padding: 10px 5%; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .nav-pills { display: flex; gap: 8px; overflow-x: auto; }
+        .search-box-container { position: relative; width: 220px; }
+        .elite-search { width: 100%; padding: 10px 15px 10px 35px; border-radius: 20px; border: 1px solid #ccc; outline: none; font-size: 0.9rem; }
+        .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; opacity: 0.5; }
 
-        @keyframes elegantShine {
-            from { opacity: 0.9; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
-            to { opacity: 1; text-shadow: 0 0 25px var(--accent); }
-        }
+        .tab-trigger { padding: 10px 18px; border: none; background: transparent; font-weight: 700; color: #666; cursor: pointer; border-radius: 6px; text-transform: uppercase; font-size: 0.7rem; position: relative; white-space: nowrap; }
+        .tab-trigger.active { background: var(--primary); color: var(--accent); }
+        .tab-trigger.locked::after { content: '🔒'; font-size: 0.5rem; position: absolute; top: 0; right: 2px; }
 
-        .sub-address {
-            color: var(--accent);
-            font-size: 1rem;
-            letter-spacing: 6px;
-            margin-top: 15px;
-            text-transform: uppercase;
-            font-weight: 300;
-        }
-
-        /* --- Fixed Professional Navbar --- */
-        .sticky-nav {
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 15px 0;
-            border-bottom: 1px solid #E1E1E1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .nav-pills {
-            display: flex;
-            gap: 15px;
-            background: #E8E8E8;
-            padding: 5px;
-            border-radius: 8px;
-        }
-
-        .tab-trigger {
-            padding: 10px 25px;
-            border: none;
-            background: transparent;
-            font-weight: 700;
-            color: var(--text-secondary);
-            cursor: pointer;
-            border-radius: 6px;
-            transition: 0.3s;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-        }
-
-        .tab-trigger.active {
-            background: var(--primary);
-            color: var(--accent);
-        }
-
-        /* --- Layout & Search --- */
-        .wrapper {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-            min-height: 700px;
-        }
-
-        .search-container {
-            max-width: 600px;
-            margin: 0 auto 50px;
-            position: relative;
-        }
-
-        .elite-search {
-            width: 100%;
-            padding: 18px 25px 18px 50px;
-            border-radius: 4px;
-            border: 1px solid #D1D1D1;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-        }
-
-        .elite-search:focus {
-            border-color: var(--accent);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
-
-        /* --- Corporate Grid & Buttons --- */
-        .portal-grid {
-            display: none;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 20px;
-        }
-
+        .wrapper { max-width: 1300px; margin: 50px auto; padding: 0 20px; }
+        .portal-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
         .portal-grid.active { display: grid; }
+        .elite-card { background: var(--white); padding: 45px 20px; text-decoration: none; border: 1px solid #ddd; border-bottom: 4px solid #ddd; display: flex; flex-direction: column; align-items: center; transition: 0.3s; }
+        .elite-card:hover:not(.card-locked) { transform: translateY(-8px); border-bottom-color: var(--accent); }
+        .card-glyph { font-size: 3rem; margin-bottom: 18px; opacity: 0.85; }
+        .card-label { color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; text-align: center; }
+        .card-locked { opacity: 0.65; cursor: pointer; position: relative; }
+        .card-locked::after { content: '🔒'; position: absolute; top: 12px; right: 12px; font-size: 1.3rem; }
 
-        .elite-card {
-            background: var(--white);
-            padding: 35px 20px;
-            text-decoration: none;
-            border: 1px solid #EAEAEA;
-            border-bottom: 3px solid #EAEAEA;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .elite-card:hover {
-            transform: translateY(-5px);
-            border-bottom-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-
-        .card-glyph {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            opacity: 0.8;
-        }
-
-        .card-label {
-            color: var(--primary);
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-        }
-
-        .elite-card:hover .card-label { color: var(--accent); }
+        #passModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; padding: 20px; }
+        .modal-box { background: white; padding: 40px; border-radius: 12px; text-align: center; border-top: 5px solid var(--accent); width: 100%; max-width: 400px; }
+        .modal-box input { padding: 12px; width: 100%; max-width: 150px; font-size: 1.5rem; text-align: center; letter-spacing: 5px; border: 1px solid #ccc; margin: 20px 0; border-radius: 5px; }
+        .modal-box button { background: var(--primary); color: var(--accent); padding: 12px 25px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%; }
     </style>
 </head>
 <body>
+<div id="passModal">
+    <div class="modal-box">
+        <h3 id="modalTitle" style="margin:0; font-family:'Cinzel';">Security Access</h3>
+        <p id="modalDesc">Enter Authorization Key</p>
+        <input type="password" id="passInput" maxlength="4" autofocus> <br>
+        <button onclick="verifyAccess()">Unlock Now</button>
+        <button onclick="closeModal()" style="background:#ddd; color:#333; margin-top:10px">Cancel</button>
+    </div>
+</div>
 
 <header>
-    <h1 class="academy-name">M.J.M.I National Academy</h1>
-    <div class="sub-address">Sathla • Mawana • Meerut</div>
+    <!-- Logo par click karne se Master Login trigger hoga -->
+    <img src="image2.jpg" alt="Logo" class="academy-logo" onclick="masterLoginTrigger()">
+    <div class="header-text-container">
+        <h1 class="academy-name">M.J.M.I National Academy</h1>
+        <div class="sub-address">Sathla • Mawana • Meerut</div>
+    </div>
 </header>
 
 <div class="sticky-nav">
     <div class="nav-pills">
-        <button class="tab-trigger active" onclick="switchSection(event, 'academic')">Academic</button>
-        <button class="tab-trigger" onclick="switchSection(event, 'student')">Student Life</button>
-        <button class="tab-trigger" onclick="switchSection(event, 'research')">Research</button>
-        <button class="tab-trigger" onclick="switchSection(event, 'campus')">Campus</button>
-        <button class="tab-trigger" onclick="switchSection(event, 'admin')">Admin</button>
+        <button id="btn-academic" class="tab-trigger active" onclick="switchSection(event, 'academic')">Academic</button>
+        <button id="btn-syllabus" class="tab-trigger locked" onclick="initiateSecurity(event, 'syllabus', 'syllabus_tab')">Syllabus Repo</button>
+        <button id="btn-research" class="tab-trigger locked" onclick="initiateSecurity(event, 'research', 'research_tab')">Research</button>
+        <button id="btn-campus" class="tab-trigger locked" onclick="initiateSecurity(event, 'campus', 'campus_tab')">Campus</button>
+        <button id="btn-admin" class="tab-trigger locked" onclick="initiateSecurity(event, 'admin', 'admin_tab')">Admin</button>
+    </div>
+
+    <div class="search-box-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="siteSearch" class="elite-search" placeholder="Search..." onkeyup="filterContent()">
     </div>
 </div>
 
 <div class="wrapper">
-    <div class="search-container">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="siteSearch" class="elite-search" placeholder="Search University Portals..." onkeyup="filterView()">
-    </div>
-
-    <!-- ACADEMIC TAB -->
+    <!-- ACADEMIC DEPARTMENT (All 12 Buttons Locked) -->
     <div id="academic" class="portal-grid active">
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏛️</div><div class="card-label">Admission Center</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📜</div><div class="card-label">Syllabus Repo</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🖊️</div><div class="card-label">Exams Portal</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📖</div><div class="card-label">Digital Library</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">👨‍🏫</div><div class="card-label">Faculty Desk</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📊</div><div class="card-label">Result Engine</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🗓️</div><div class="card-label">Master Timetable</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏅</div><div class="card-label">Honors List</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🌍</div><div class="card-label">Global Access</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🎖️</div><div class="card-label">Alumni Portal</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📝</div><div class="card-label">E-Certification</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">💡</div><div class="card-label">Skill Lab</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'academic', 'admission')" class="elite-card card-locked"><div class="card-glyph">🏛️</div><div class="card-label">Admission Center</div></a>
+        
+        <!-- Syllabus Shortcut (Linked to syllabus_shortcut key) -->
+        <a href="javascript:void(0)" onclick="cardAuthCheck(event, this, 'academic', 'syllabus_shortcut', true)" class="elite-card card-locked" style="border-color: var(--accent);"><div class="card-glyph">📜</div><div class="card-label">Syllabus Repo</div></a>
+        
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'academic', 'exams')" class="elite-card card-locked"><div class="card-glyph">🖊️</div><div class="card-label">Exams Portal</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'academic', 'library')" class="elite-card card-locked"><div class="card-glyph">📖</div><div class="card-label">Digital Library</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'academic', 'faculty')" class="elite-card card-locked"><div class="card-glyph">👨‍🏫</div><div class="card-label">Faculty Desk</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'academic', 'result')" class="elite-card card-locked"><div class="card-glyph">📊</div><div class="card-label">Result Engine</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'academic', 'timetable')" class="elite-card card-locked"><div class="card-glyph">🗓️</div><div class="card-label">Master Timetable</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'academic', 'honors')" class="elite-card card-locked"><div class="card-glyph">🏅</div><div class="card-label">Honors List</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'academic', 'global')" class="elite-card card-locked"><div class="card-glyph">🌍</div><div class="card-label">Global Access</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'academic', 'alumni')" class="elite-card card-locked"><div class="card-glyph">🎖️</div><div class="card-label">Alumni Portal</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'academic', 'ecert')" class="elite-card card-locked"><div class="card-glyph">📝</div><div class="card-label">E-Certification</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'academic', 'skill')" class="elite-card card-locked"><div class="card-glyph">💡</div><div class="card-label">Skill Lab</div></a>
     </div>
-
-    <!-- STUDENT TAB -->
-    <div id="student" class="portal-grid">
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">👤</div><div class="card-label">User Profile</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🆔</div><div class="card-label">ID Activation</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏀</div><div class="card-label">Athletics</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🎭</div><div class="card-label">Cultural Hub</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏠</div><div class="card-label">Housing Info</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🚍</div><div class="card-label">Transit Routes</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🍔</div><div class="card-label">Dining Menu</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📢</div><div class="card-label">Bulletins</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🩺</div><div class="card-label">Health Unit</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🤝</div><div class="card-label">Support Net</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🗳️</div><div class="card-label">Council Vote</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🎸</div><div class="card-label">Live Events</div></a>
+    <!-- SYLLABUS REPOSITORY (Nursery - IX Locked) -->
+    <div id="syllabus" class="portal-grid">
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'syllabus_classes', 'nursery')" class="elite-card card-locked">
+            <div class="card-glyph">🎨</div><div class="card-label">Nursery</div>
+        </a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'syllabus_classes', 'lkg')" class="elite-card card-locked">
+            <div class="card-glyph">🧸</div><div class="card-label">L.K.G</div>
+        </a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'syllabus_classes', 'ukg')" class="elite-card card-locked">
+            <div class="card-glyph">🪁</div><div class="card-label">U.K.G</div>
+        </a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'syllabus_classes', 'class_i')" class="elite-card card-locked">
+            <div class="card-glyph">🎒</div><div class="card-label">Class I</div>
+        </a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'syllabus_classes', 'class_ii')" class="elite-card card-locked">
+            <div class="card-glyph">📚</div><div class="card-label">Class II</div>
+        </a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'syllabus_classes', 'class_iii')" class="elite-card card-locked">
+            <div class="card-glyph">✏️</div><div class="card-label">Class III</div>
+        </a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'syllabus_classes', 'class_iv')" class="elite-card card-locked">
+            <div class="card-glyph">📐</div><div class="card-label">Class IV</div>
+        </a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'syllabus_classes', 'class_v')" class="elite-card card-locked">
+            <div class="card-glyph">🧪</div><div class="card-label">Class V</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card card-locked" onclick="return cardAuthCheck(event, this, 'syllabus_classes', 'class_vi')">
+            <div class="card-glyph">🌎</div><div class="card-label">Class VI</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card card-locked" onclick="return cardAuthCheck(event, this, 'syllabus_classes', 'class_vii')">
+            <div class="card-glyph">🧬</div><div class="card-label">Class VII</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card card-locked" onclick="return cardAuthCheck(event, this, 'syllabus_classes', 'class_viii')">
+            <div class="card-glyph">📉</div><div class="card-label">Class VIII</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card card-locked" onclick="return cardAuthCheck(event, this, 'syllabus_classes', 'class_ix')">
+            <div class="card-glyph">🔬</div><div class="card-label">Class IX</div>
+        </a>
     </div>
-    <!-- RESEARCH TAB -->
+    <!-- RESEARCH DEPARTMENT (Locked - 12 Cards) -->
     <div id="research" class="portal-grid">
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🔬</div><div class="card-label">Research Lab</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📄</div><div class="card-label">Journal Access</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🧪</div><div class="card-label">Project Grants</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🧬</div><div class="card-label">Patent Center</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📊</div><div class="card-label">Data Analytics</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏢</div><div class="card-label">Incubation Hub</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🖇️</div><div class="card-label">Global Partners</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🔍</div><div class="card-label">Case Archives</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">💻</div><div class="card-label">High-End Compute</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📑</div><div class="card-label">Thesis Portal</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🛡️</div><div class="card-label">Ethical Board</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🧬</div><div class="card-label">Bio-Sciences</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'research_buttons', 'lab')" class="elite-card card-locked"><div class="card-glyph">🔬</div><div class="card-label">Research Lab</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'research_buttons', 'journal')" class="elite-card card-locked"><div class="card-glyph">📄</div><div class="card-label">Journal Access</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'research_buttons', 'grants')" class="elite-card card-locked"><div class="card-glyph">🧪</div><div class="card-label">Project Grants</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'research_buttons', 'patent')" class="elite-card card-locked"><div class="card-glyph">🧬</div><div class="card-label">Patent Center</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'research_buttons', 'data')" class="elite-card card-locked"><div class="card-glyph">📊</div><div class="card-label">Data Analytics</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'research_buttons', 'incubation')" class="elite-card card-locked"><div class="card-glyph">🏢</div><div class="card-label">Incubation Hub</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'research_buttons', 'partners')" class="elite-card card-locked"><div class="card-glyph">🖇️</div><div class="card-label">Global Partners</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'research_buttons', 'archives')" class="elite-card card-locked"><div class="card-glyph">🔍</div><div class="card-label">Case Archives</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'research_buttons', 'compute')" class="elite-card card-locked"><div class="card-glyph">💻</div><div class="card-label">High-End Compute</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'research_buttons', 'thesis')" class="elite-card card-locked"><div class="card-glyph">📑</div><div class="card-label">Thesis Portal</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'research_buttons', 'ethical')" class="elite-card card-locked"><div class="card-glyph">🛡️</div><div class="card-label">Ethical Board</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'research_buttons', 'bio')" class="elite-card card-locked"><div class="card-glyph">🧬</div><div class="card-label">Bio-Sciences</div></a>
     </div>
 
-    <!-- CAMPUS TAB -->
+    <!-- CAMPUS INFRASTRUCTURE (Locked - 12 Cards) -->
     <div id="campus" class="portal-grid">
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🗺️</div><div class="card-label">Interactive Map</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🌳</div><div class="card-label">Eco-Campus</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📸</div><div class="card-label">Media Gallery</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🎬</div><div class="card-label">Virtual Tour</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🕌</div><div class="card-label">Prayer Timing</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🚗</div><div class="card-label">Parking Desk</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">👜</div><div class="card-label">Academy Store</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🚔</div><div class="card-label">Campus Safety</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏧</div><div class="card-label">Bank Services</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📡</div><div class="card-label">Network Status</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🚒</div><div class="card-label">Fire Safety</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🧹</div><div class="card-label">Facility Help</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'campus_buttons', 'map')" class="elite-card card-locked"><div class="card-glyph">🗺️</div><div class="card-label">Interactive Map</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'campus_buttons', 'eco')" class="elite-card card-locked"><div class="card-glyph">🌳</div><div class="card-label">Eco-Campus</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'campus_buttons', 'media')" class="elite-card card-locked"><div class="card-glyph">📸</div><div class="card-label">Media Gallery</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'campus_buttons', 'tour')" class="elite-card card-locked"><div class="card-glyph">🎬</div><div class="card-label">Virtual Tour</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'campus_buttons', 'prayer')" class="elite-card card-locked"><div class="card-glyph">🕌</div><div class="card-label">Prayer Timing</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'campus_buttons', 'parking')" class="elite-card card-locked"><div class="card-glyph">🚗</div><div class="card-label">Parking Desk</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'campus_buttons', 'store')" class="elite-card card-locked"><div class="card-glyph">👜</div><div class="card-label">Academy Store</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'campus_buttons', 'safety')" class="elite-card card-locked"><div class="card-glyph">🚔</div><div class="card-label">Campus Safety</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'campus_buttons', 'bank')" class="elite-card card-locked"><div class="card-glyph">🏧</div><div class="card-label">Bank Services</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'campus_buttons', 'network')" class="elite-card card-locked"><div class="card-glyph">📡</div><div class="card-label">Network Status</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'campus_buttons', 'fire')" class="elite-card card-locked"><div class="card-glyph">🚒</div><div class="card-label">Fire Safety</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'campus_buttons', 'facility')" class="elite-card card-locked"><div class="card-glyph">🧹</div><div class="card-label">Facility Help</div></a>
     </div>
 
-    <!-- ADMIN TAB -->
+    <!-- ADMINISTRATION (Locked - 12 Cards) -->
     <div id="admin" class="portal-grid">
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📂</div><div class="card-label">Official Records</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">✉️</div><div class="card-label">Dean's Office</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">⚖️</div><div class="card-label">Regulatory Acts</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">💼</div><div class="card-label">Staff Careers</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">💸</div><div class="card-label">Fee Management</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏦</div><div class="card-label">E-Payment</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📃</div><div class="card-label">Public Tenders</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏢</div><div class="card-label">Executive Body</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📞</div><div class="card-label">Directory</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📋</div><div class="card-label">Grievance Cell</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🖥️</div><div class="card-label">System Admin</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🔒</div><div class="card-label">Privacy Cell</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'admin_buttons', 'records')" class="elite-card card-locked"><div class="card-glyph">📂</div><div class="card-label">Official Records</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'admin_buttons', 'dean')" class="elite-card card-locked"><div class="card-glyph">✉️</div><div class="card-label">Dean's Office</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'admin_buttons', 'acts')" class="elite-card card-locked"><div class="card-glyph">⚖️</div><div class="card-label">Regulatory Acts</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'admin_buttons', 'careers')" class="elite-card card-locked"><div class="card-glyph">💼</div><div class="card-label">Staff Careers</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'admin_buttons', 'fees')" class="elite-card card-locked"><div class="card-glyph">💸</div><div class="card-label">Fee Management</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'admin_buttons', 'epay')" class="elite-card card-locked"><div class="card-glyph">🏦</div><div class="card-label">E-Payment</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'admin_buttons', 'tenders')" class="elite-card card-locked"><div class="card-glyph">📃</div><div class="card-label">Public Tenders</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'admin_buttons', 'executive')" class="elite-card card-locked"><div class="card-glyph">🏢</div><div class="card-label">Executive Body</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'admin_buttons', 'directory')" class="elite-card card-locked"><div class="card-glyph">📞</div><div class="card-label">Directory</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'admin_buttons', 'grievance')" class="elite-card card-locked"><div class="card-glyph">📋</div><div class="card-label">Grievance Cell</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'admin_buttons', 'sysadmin')" class="elite-card card-locked"><div class="card-glyph">🖥️</div><div class="card-label">System Admin</div></a>
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'admin_buttons', 'privacy')" class="elite-card card-locked"><div class="card-glyph">🔒</div><div class="card-label">Privacy Cell</div></a>
     </div>
 </div>
-
-<!-- UPDATED PROFESSIONAL FOOTER -->
-<footer style="background: var(--primary); padding: 60px 20px; text-align: center; color: var(--white); border-top: 3px solid var(--accent); margin-top: 50px;">
-    <div style="font-family: 'Cinzel', serif; font-size: 1.5rem; margin-bottom: 10px; color: var(--accent);">
-        M.J.M.I National Academy
-    </div>
-    <div style="font-size: 0.95rem; opacity: 0.8; letter-spacing: 1px; line-height: 1.8;">
-        Sathla, Mawana, Meerut, Uttar Pradesh <br>
-        <span style="color: var(--accent);">© 2026</span>
-    </div>
+<!-- ORIGINAL PROFESSIONAL FOOTER -->
+<footer style="background: var(--primary); padding: 60px 20px; text-align: center; color: var(--white); border-top: 5px solid var(--accent); margin-top: 50px;">
+    <div style="font-family: 'Cinzel', serif; font-size: 1.5rem; margin-bottom: 10px; color: var(--accent);">M.J.M.I National Academy</div>
+    <div style="font-size: 0.95rem; opacity: 0.8; letter-spacing: 1px; line-height: 1.8;">Sathla, Mawana, Meerut, Uttar Pradesh <br> © 2026</div>
 </footer>
 
+<script src="config.js"></script>
+
 <script>
-    // Professional Tab Switcher
-    function switchSection(evt, tabName) {
-        const grids = document.querySelectorAll('.portal-grid');
-        const triggers = document.querySelectorAll('.tab-trigger');
-        
-        grids.forEach(g => g.classList.remove('active'));
-        triggers.forEach(t => t.classList.remove('active'));
-        
-        document.getElementById(tabName).classList.add('active');
-        evt.currentTarget.classList.add('active');
-        
-        // Reset search bar on switch
-        document.getElementById('siteSearch').value = "";
-        filterView();
+    let activeAuth = null;
+
+    // Trigger Master Login ONLY from Logo
+    function masterLoginTrigger() {
+        activeAuth = { type: 'MASTER', pass: CONFIG.master_key };
+        document.getElementById('modalTitle').innerText = "Admin Master Login";
+        document.getElementById('modalDesc').innerText = "Enter Administrative Master Key";
+        openModal();
     }
 
-    // High Speed Search Filter
-    function filterView() {
-        const query = document.getElementById('siteSearch').value.toLowerCase();
-        const currentActiveGrid = document.querySelector('.portal-grid.active');
-        const cards = currentActiveGrid.getElementsByClassName('elite-card');
-        
-        for (let i = 0; i < cards.length; i++) {
-            const text = cards[i].innerText.toLowerCase();
-            if (text.includes(query)) {
-                cards[i].style.display = "flex";
-            } else {
-                cards[i].style.display = "none";
-            }
+    function switchSection(evt, tabName) {
+        document.querySelectorAll('.portal-grid').forEach(g => g.classList.remove('active'));
+        document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabName).classList.add('active');
+        const btn = evt ? evt.currentTarget : document.getElementById('btn-'+tabName);
+        if(btn) btn.classList.add('active');
+    }
+
+    // Tab Security
+    function initiateSecurity(evt, tabName, section) {
+        const btn = evt.currentTarget;
+        if (!btn.classList.contains('locked')) { switchSection(evt, tabName); return; }
+        activeAuth = { type: 'TAB', target: tabName, element: btn, pass: CONFIG.passwords[section] };
+        resetModal(); openModal();
+    }
+
+    // Card Security
+    function cardAuthCheck(evt, element, section, key, isJump = false) {
+        if (element.classList.contains('card-locked')) {
+            evt.preventDefault();
+            activeAuth = { type: 'CARD', element: element, pass: CONFIG[section][key], jump: isJump };
+            resetModal(); openModal();
+            return false;
+        }
+        if(isJump) switchSection(null, 'syllabus');
+        return true;
+    }
+
+    function openModal() { document.getElementById('passModal').style.display = 'flex'; document.getElementById('passInput').focus(); }
+    function closeModal() { document.getElementById('passModal').style.display = 'none'; document.getElementById('passInput').value = ''; activeAuth = null; }
+    function resetModal() { document.getElementById('modalTitle').innerText = "Security Access"; document.getElementById('modalDesc').innerText = "Enter Section Key"; }
+
+    function verifyAccess() {
+        const input = document.getElementById('passInput').value;
+
+        // MASTER LOGIN LOGIC
+        if (activeAuth.type === 'MASTER') {
+            if (input === CONFIG.master_key) { fullUnlock(); closeModal(); } 
+            else { alert("Invalid Master Key!"); document.getElementById('passInput').value = ''; }
+            return;
+        }
+
+        // REGULAR KEY LOGIC (Master Key 7474 won't work here anymore)
+        if (input === activeAuth.pass) {
+            processUnlock();
+            closeModal();
+        } else {
+            alert("🛑 Access Denied: Incorrect Key");
+            document.getElementById('passInput').value = '';
         }
     }
-</script>
 
+    function processUnlock() {
+        const { type, element, target, jump } = activeAuth;
+        const cls = (type === 'TAB') ? 'locked' : 'card-locked';
+        element.classList.remove(cls);
+        if(type === 'TAB') switchSection(null, target); else if(jump) switchSection(null, 'syllabus'); else element.click();
+        setTimeout(() => { 
+            element.classList.add(cls);
+            if(type === 'TAB' && element.classList.contains('active')) switchSection(null, 'academic');
+        }, CONFIG.lock_time);
+    }
+
+    function fullUnlock() {
+        document.querySelectorAll('.locked, .card-locked').forEach(el => {
+            const cls = el.classList.contains('tab-trigger') ? 'locked' : 'card-locked';
+            el.classList.remove(cls);
+            setTimeout(() => el.classList.add(cls), CONFIG.lock_time);
+        });
+        alert("🔓 Master Access Granted: Everything Unlocked for 5 Minutes.");
+    }
+
+    function filterContent() {
+        const q = document.getElementById('siteSearch').value.toLowerCase();
+        const activeGrid = document.querySelector('.portal-grid.active');
+        if(!activeGrid) return;
+        Array.from(activeGrid.getElementsByClassName('elite-card')).forEach(card => {
+            card.style.display = card.innerText.toLowerCase().includes(q) ? "flex" : "none";
+        });
+    }
+</script>
 </body>
 </html>
