@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.J.M.I National Academy | Elite Portal</title>
+    <!-- Premium Fonts -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #001529; /* Deep Midnight Blue */
+            --accent: #C5A059;  /* Brushed Gold */
+            --bg-light: #F0F2F5;
+            --white: #ffffff;
+            --text-main: #1A1A1A;
+            --text-secondary: #666666;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* --- Elite Professional Header --- */
+        header {
+            background: var(--primary);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+            position: relative;
+        }
+
+        .academy-name {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
+            margin: 0;
+            color: var(--white);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            /* Professional Glow */
+            text-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
+            animation: elegantShine 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes elegantShine {
+            from { opacity: 0.9; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+            to { opacity: 1; text-shadow: 0 0 25px var(--accent); }
+        }
+
+        .sub-address {
+            color: var(--accent);
+            font-size: 1rem;
+            letter-spacing: 6px;
+            margin-top: 15px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        /* --- Fixed Professional Navbar --- */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid #E1E1E1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-pills {
+            display: flex;
+            gap: 15px;
+            background: #E8E8E8;
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        .tab-trigger {
+            padding: 10px 25px;
+            border: none;
+            background: transparent;
+            font-weight: 700;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .tab-trigger.active {
+            background: var(--primary);
+            color: var(--accent);
+        }
+
+        /* --- Layout & Search --- */
+        .wrapper {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            min-height: 700px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+
+        .elite-search {
+            width: 100%;
+            padding: 18px 25px 18px 50px;
+            border-radius: 4px;
+            border: 1px solid #D1D1D1;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .elite-search:focus {
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* --- Corporate Grid & Buttons --- */
+        .portal-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .portal-grid.active { display: grid; }
+
+        .elite-card {
+            background: var(--white);
+            padding: 35px 20px;
+            text-decoration: none;
+            border: 1px solid #EAEAEA;
+            border-bottom: 3px solid #EAEAEA;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .elite-card:hover {
+            transform: translateY(-5px);
+            border-bottom-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .card-glyph {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .card-label {
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .elite-card:hover .card-label { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 class="academy-name">M.J.M.I National Academy</h1>
+    <div class="sub-address">Sathla • Mawana • Meerut</div>
+</header>
+
+<div class="sticky-nav">
+    <div class="nav-pills">
+        <button class="tab-trigger active" onclick="switchSection(event, 'academic')">Academic</button>
+        <button class="tab-trigger" onclick="switchSection(event, 'student')">Student Life</button>
+        <button class="tab-trigger" onclick="switchSection(event, 'research')">Research</button>
+        <button class="tab-trigger" onclick="switchSection(event, 'campus')">Campus</button>
+        <button class="tab-trigger" onclick="switchSection(event, 'admin')">Admin</button>
+    </div>
+</div>
+
+<div class="wrapper">
+    <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="siteSearch" class="elite-search" placeholder="Search University Portals..." onkeyup="filterView()">
+    </div>
+
+    <!-- ACADEMIC TAB -->
+    <div id="academic" class="portal-grid active">
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏛️</div><div class="card-label">Admission Center</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📜</div><div class="card-label">Syllabus Repo</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🖊️</div><div class="card-label">Exams Portal</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📖</div><div class="card-label">Digital Library</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">👨‍🏫</div><div class="card-label">Faculty Desk</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📊</div><div class="card-label">Result Engine</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🗓️</div><div class="card-label">Master Timetable</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏅</div><div class="card-label">Honors List</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🌍</div><div class="card-label">Global Access</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🎖️</div><div class="card-label">Alumni Portal</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📝</div><div class="card-label">E-Certification</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">💡</div><div class="card-label">Skill Lab</div></a>
+    </div>
+
+    <!-- STUDENT TAB -->
+    <div id="student" class="portal-grid">
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">👤</div><div class="card-label">User Profile</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🆔</div><div class="card-label">ID Activation</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏀</div><div class="card-label">Athletics</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🎭</div><div class="card-label">Cultural Hub</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏠</div><div class="card-label">Housing Info</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🚍</div><div class="card-label">Transit Routes</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🍔</div><div class="card-label">Dining Menu</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📢</div><div class="card-label">Bulletins</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🩺</div><div class="card-label">Health Unit</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🤝</div><div class="card-label">Support Net</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🗳️</div><div class="card-label">Council Vote</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🎸</div><div class="card-label">Live Events</div></a>
+    </div>
+    <!-- RESEARCH TAB -->
+    <div id="research" class="portal-grid">
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🔬</div><div class="card-label">Research Lab</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📄</div><div class="card-label">Journal Access</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🧪</div><div class="card-label">Project Grants</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🧬</div><div class="card-label">Patent Center</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📊</div><div class="card-label">Data Analytics</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏢</div><div class="card-label">Incubation Hub</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🖇️</div><div class="card-label">Global Partners</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🔍</div><div class="card-label">Case Archives</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">💻</div><div class="card-label">High-End Compute</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📑</div><div class="card-label">Thesis Portal</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🛡️</div><div class="card-label">Ethical Board</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🧬</div><div class="card-label">Bio-Sciences</div></a>
+    </div>
+
+    <!-- CAMPUS TAB -->
+    <div id="campus" class="portal-grid">
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🗺️</div><div class="card-label">Interactive Map</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🌳</div><div class="card-label">Eco-Campus</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📸</div><div class="card-label">Media Gallery</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🎬</div><div class="card-label">Virtual Tour</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🕌</div><div class="card-label">Prayer Timing</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🚗</div><div class="card-label">Parking Desk</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">👜</div><div class="card-label">Academy Store</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🚔</div><div class="card-label">Campus Safety</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏧</div><div class="card-label">Bank Services</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📡</div><div class="card-label">Network Status</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🚒</div><div class="card-label">Fire Safety</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🧹</div><div class="card-label">Facility Help</div></a>
+    </div>
+
+    <!-- ADMIN TAB -->
+    <div id="admin" class="portal-grid">
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📂</div><div class="card-label">Official Records</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">✉️</div><div class="card-label">Dean's Office</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">⚖️</div><div class="card-label">Regulatory Acts</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">💼</div><div class="card-label">Staff Careers</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">💸</div><div class="card-label">Fee Management</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏦</div><div class="card-label">E-Payment</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📃</div><div class="card-label">Public Tenders</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🏢</div><div class="card-label">Executive Body</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📞</div><div class="card-label">Directory</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">📋</div><div class="card-label">Grievance Cell</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🖥️</div><div class="card-label">System Admin</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-glyph">🔒</div><div class="card-label">Privacy Cell</div></a>
+    </div>
+</div>
+
+<!-- UPDATED PROFESSIONAL FOOTER -->
+<footer style="background: var(--primary); padding: 60px 20px; text-align: center; color: var(--white); border-top: 3px solid var(--accent); margin-top: 50px;">
+    <div style="font-family: 'Cinzel', serif; font-size: 1.5rem; margin-bottom: 10px; color: var(--accent);">
+        M.J.M.I National Academy
+    </div>
+    <div style="font-size: 0.95rem; opacity: 0.8; letter-spacing: 1px; line-height: 1.8;">
+        Sathla, Mawana, Meerut, Uttar Pradesh <br>
+        <span style="color: var(--accent);">© 2026</span>
+    </div>
+</footer>
+
+<script>
+    // Professional Tab Switcher
+    function switchSection(evt, tabName) {
+        const grids = document.querySelectorAll('.portal-grid');
+        const triggers = document.querySelectorAll('.tab-trigger');
+        
+        grids.forEach(g => g.classList.remove('active'));
+        triggers.forEach(t => t.classList.remove('active'));
+        
+        document.getElementById(tabName).classList.add('active');
+        evt.currentTarget.classList.add('active');
+        
+        // Reset search bar on switch
+        document.getElementById('siteSearch').value = "";
+        filterView();
+    }
+
+    // High Speed Search Filter
+    function filterView() {
+        const query = document.getElementById('siteSearch').value.toLowerCase();
+        const currentActiveGrid = document.querySelector('.portal-grid.active');
+        const cards = currentActiveGrid.getElementsByClassName('elite-card');
+        
+        for (let i = 0; i < cards.length; i++) {
+            const text = cards[i].innerText.toLowerCase();
+            if (text.includes(query)) {
+                cards[i].style.display = "flex";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
