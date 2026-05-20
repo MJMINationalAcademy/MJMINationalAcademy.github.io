@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.J.M.I National Academy | Portal</title>
+    <title>M.J.M.I National Academy | Secured Portal</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root { --primary: #001529; --accent: #C5A059; --bg-body: #F4F7F6; --white: #ffffff; }
@@ -43,10 +43,14 @@
             border: 1px solid #eee; border-bottom: 4px solid #e0e0e0; 
             display: flex; flex-direction: column; align-items: center; 
             transition: all 0.2s ease; border-radius: 18px; text-align: center;
+            position: relative; cursor: pointer;
         }
         .elite-card:active { transform: scale(0.95); background: #f0f0f0; }
         .card-glyph { font-size: 2.2rem; margin-bottom: 10px; }
         .card-label { color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.3px; line-height: 1.2; }
+
+        .card-locked { opacity: 0.75; }
+        .card-locked::after { content: '🔒'; position: absolute; top: 10px; right: 10px; font-size: 0.9rem; opacity: 0.6; }
 
         #passModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; justify-content: center; align-items: center; }
         .modal-box { background: white; padding: 30px; border-radius: 20px; text-align: center; border-top: 6px solid var(--accent); width: 90%; max-width: 350px; }
@@ -77,44 +81,44 @@
 <div class="sticky-nav">
     <div class="search-box-container">
         <span class="search-icon">🔍</span>
-        <input type="text" id="siteSearch" class="elite-search" placeholder="Search..." onkeyup="filterContent()">
+        <input type="text" id="siteSearch" class="elite-search" placeholder="Search Portal..." onkeyup="filterContent()">
     </div>
 </div>
 
 <div class="wrapper">
-    <!-- MAIN DASHBOARD (Linked to External Files) -->
     <div id="main-dashboard" class="portal-grid">
-        <a href="https://google.com" target="_blank" class="elite-card">
+        <!-- Locked Buttons -->
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'dashboard', 'admission')" class="elite-card card-locked">
             <div class="card-glyph">🏛️</div><div class="card-label">Admission Form</div>
         </a>
         
-        <!-- Link to syllabus.html -->
+        <!-- UNLOCKED Syllabus Button -->
         <a href="syllabus.html" class="elite-card">
             <div class="card-glyph">📜</div><div class="card-label">Syllabus</div>
         </a>
         
-        <a href="https://google.com" target="_blank" class="elite-card">
+        <!-- Locked Buttons -->
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'dashboard', 'exams')" class="elite-card card-locked">
             <div class="card-glyph">🖊️</div><div class="card-label">Exams</div>
         </a>
         
-        <a href="https://google.com" target="_blank" class="elite-card">
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'dashboard', 'library')" class="elite-card card-locked">
             <div class="card-glyph">📖</div><div class="card-label">Library</div>
         </a>
         
-        <a href="https://google.com" target="_blank" class="elite-card">
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'dashboard', 'results')" class="elite-card card-locked">
             <div class="card-glyph">📊</div><div class="card-label">Results</div>
         </a>
         
-        <a href="https://google.com" target="_blank" class="elite-card">
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'dashboard', 'timetable')" class="elite-card card-locked">
             <div class="card-glyph">🗓️</div><div class="card-label">Time Table</div>
         </a>
         
-        <a href="https://google.com" target="_blank" class="elite-card">
+        <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'dashboard', 'skill')" class="elite-card card-locked">
             <div class="card-glyph">💡</div><div class="card-label">Skill Lab</div>
         </a>
         
-        <!-- Link to camp.html -->
-        <a href="camp.html" class="elite-card">
+        <a href="camp.html" onclick="return cardAuthCheck(event, this, 'dashboard', 'camp')" class="elite-card card-locked">
             <div class="card-glyph">🌳</div><div class="card-label">Camp</div>
         </a>
     </div>
@@ -134,6 +138,16 @@
         openModal();
     }
 
+    function cardAuthCheck(evt, element, section, key) {
+        if (element.classList.contains('card-locked')) {
+            evt.preventDefault();
+            activeAuth = { type: 'CARD', element: element, pass: CONFIG[section][key] };
+            openModal();
+            return false;
+        }
+        return true;
+    }
+
     function openModal() { 
         document.getElementById('passModal').style.display = 'flex'; 
         document.getElementById('passInput').focus(); 
@@ -148,13 +162,18 @@
         const input = document.getElementById('passInput').value;
         if (activeAuth.type === 'MASTER') {
             if (input === CONFIG.master_key) { 
+                document.querySelectorAll('.card-locked').forEach(el => el.classList.remove('card-locked'));
                 alert("🔓 Master Access Granted"); 
                 closeModal(); 
-            } else { 
-                alert("Wrong Key"); 
-                document.getElementById('passInput').value = ''; 
-            }
+            } else { alert("Invalid Key"); }
+            return;
         }
+
+        if (input === activeAuth.pass) {
+            activeAuth.element.classList.remove('card-locked');
+            activeAuth.element.click();
+            closeModal();
+        } else { alert("Access Denied"); }
     }
 
     function filterContent() {

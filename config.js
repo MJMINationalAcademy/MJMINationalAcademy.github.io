@@ -1,11 +1,14 @@
-/* M.J.M.I CONFIGURATION CENTER - MULTI-PAGE VERSION */
+/* M.J.M.I CONFIGURATION CENTER */
 const CONFIG = {
-    master_key: "7474", // Logo click master unlock for Main Page
+    master_key: "7474", 
 
-    /* 
-       Architecture Note:
-       Navigation is now handled via separate HTML files 
-       (syllabus.html and camp.html) to prevent browser 
-       exit on hardware back-button press.
-    */
+    dashboard: {
+        admission: "9797",
+        exams:     "9797",
+        library:   "9797",
+        results:   "9797",
+        timetable: "9797",
+        skill:     "9797",
+        camp:      "9797"
+    }
 };
