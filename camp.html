@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camp Desk | M.J.M.I National Academy</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root { --primary: #001529; --accent: #C5A059; --bg-body: #F4F7F6; --white: #ffffff; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background-color: var(--bg-body); overflow-x: hidden; }
+
+        header {
+            background: linear-gradient(rgba(0, 21, 41, 0.4), rgba(0, 21, 41, 0.4)), url('image1.jpg');
+            background-size: cover; background-position: center; padding: 45px 5%; 
+            border-bottom: 5px solid var(--accent); display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap;
+        }
+        .academy-logo { width: 85px; height: 85px; border-radius: 15px; border: 3px solid var(--accent); cursor: pointer; }
+        .header-text-container { text-align: left; }
+        .academy-name { font-family: 'Cinzel', serif; font-size: clamp(1.2rem, 4.5vw, 2.5rem); margin: 0; color: var(--white); text-transform: uppercase; line-height: 1.2; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
+        .sub-address { color: var(--accent); font-size: 0.8rem; letter-spacing: 2px; font-weight: 700; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; padding: 35px 10px; }
+            .header-text-container { text-align: center; }
+            .academy-name { font-size: 1.1rem; white-space: normal; }
+        }
+
+        .wrapper { max-width: 1200px; margin: 40px auto; padding: 0 15px; }
+        .portal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        
+        @media (max-width: 480px) {
+            .portal-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        }
+
+        .elite-card { 
+            background: var(--white); padding: 40px 15px; text-decoration: none; 
+            border: 1px solid #eee; border-bottom: 4px solid #e0e0e0; 
+            display: flex; flex-direction: column; align-items: center; 
+            transition: all 0.2s ease; border-radius: 18px; text-align: center;
+        }
+        .elite-card:active { transform: scale(0.95); background: #f0f0f0; }
+        .card-glyph { font-size: 2.5rem; margin-bottom: 15px; }
+        .card-label { color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html"><img src="image2.jpg" alt="Logo" class="academy-logo"></a>
+    <div class="header-text-container">
+        <h1 class="academy-name">M.J.M.I National Academy</h1>
+        <div class="sub-address">Sathla • Mawana • Meerut</div>
+    </div>
+</header>
+
+<div class="wrapper">
+    <div class="portal-grid">
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-glyph">📸</div><div class="card-label">Media Gallery</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-glyph">🎬</div><div class="card-label">Virtual Tour</div>
+        </a>
+    </div>
+</div>
+</body>
+</html>
