@@ -2,91 +2,157 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syllabus Repo | M.J.M.I National Academy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Syllabus | M.J.M.I Elite</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
-        :root { --primary: #001529; --accent: #C5A059; --bg-body: #F4F7F6; --white: #ffffff; }
+        :root { 
+            --primary: #001529; --accent: #C5A059; 
+            --bg: #F8FAFB; --white: #ffffff;
+        }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background-color: var(--bg-body); overflow-x: hidden; }
+        
+        html, body { height: 100%; margin: 0; }
+        body { 
+            display: flex; flex-direction: column;
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--bg); 
+            overflow-x: hidden; 
+        }
 
         header {
-            background: linear-gradient(rgba(0, 21, 41, 0.4), rgba(0, 21, 41, 0.4)), url('image1.jpg');
-            background-size: cover; background-position: center; padding: 45px 5%; 
-            border-bottom: 5px solid var(--accent); display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap;
+            position: relative; height: 110px; flex-shrink: 0;
+            background: url('image1.jpg') center/cover no-repeat; 
+            display: flex; align-items: center; justify-content: center; 
+            border-bottom: 4px solid var(--accent);
         }
-        .academy-logo { width: 85px; height: 85px; border-radius: 15px; border: 3px solid var(--accent); cursor: pointer; }
-        .header-text-container { text-align: left; }
-        .academy-name { font-family: 'Cinzel', serif; font-size: clamp(1.2rem, 4.5vw, 2.5rem); margin: 0; color: var(--white); text-transform: uppercase; line-height: 1.2; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
-        .sub-address { color: var(--accent); font-size: 0.8rem; letter-spacing: 2px; font-weight: 700; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
-
-        @media (max-width: 768px) {
-            header { flex-direction: column; text-align: center; padding: 35px 10px; }
-            .header-text-container { text-align: center; }
-            .academy-name { font-size: 1.1rem; white-space: normal; }
+        header::before { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.45); }
+        .academy-name { 
+            position: relative; z-index: 2; font-family: 'Cinzel', serif; 
+            font-size: 1.1rem; color: #fff; text-transform: uppercase; letter-spacing: 1.5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
-        .wrapper { max-width: 1000px; margin: 30px auto; padding: 0 15px; }
+        .home-btn { position: absolute; top: 12px; right: 15px; z-index: 10; color: #fff; text-decoration: none; font-size: 1.2rem; }
+
+        .wrapper { flex: 1 0 auto; width: 100%; max-width: 500px; margin: 0 auto; padding: 15px 12px; }
         
-        .portal-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 15px; 
-        }
+        .portal-grid { display: flex; flex-direction: column; gap: 8px; } /* Minimal gap for sleekness */
 
+        /* Ultra-Sleek VIP Slab Buttons */
         .elite-card { 
             background: var(--white); 
-            padding: 35px 10px; 
+            padding: 14px 20px; 
             text-decoration: none; 
-            border: 1px solid #eee; 
-            border-bottom: 5px solid var(--accent); 
+            border-radius: 12px;
             display: flex; 
-            justify-content: center; 
+            justify-content: space-between; 
             align-items: center; 
-            transition: all 0.3s ease; 
-            border-radius: 20px; 
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-right: 1px solid rgba(0,0,0,0.02);
+            border-top: 1px solid rgba(0,0,0,0.02);
         }
-        .elite-card:active { transform: scale(0.95); background: #f0f0f0; }
-        
+
+        /* Haptic Pinch Animation */
+        .elite-card:active { 
+            transform: scale(0.97); 
+            background: #fdfdfd;
+            border-color: var(--primary);
+        }
+
         .card-label { 
             color: var(--primary); 
             font-weight: 700; 
             text-transform: uppercase; 
-            font-size: 0.85rem; 
-            letter-spacing: 1px;
+            font-size: 0.8rem; 
+            letter-spacing: 0.8px; 
+        }
+
+        .arrow-indicator { 
+            color: var(--accent); 
+            font-size: 0.9rem; 
+            opacity: 0.6;
+            font-weight: 900;
+        }
+
+        footer { 
+            flex-shrink: 0;
+            background: var(--primary); padding: 45px 20px; 
+            text-align: center; color: #fff; border-top: 5px solid var(--accent); 
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="index.html"><img src="image2.jpg" alt="Logo" class="academy-logo"></a>
-    <div class="header-text-container">
-        <h1 class="academy-name">M.J.M.I National Academy</h1>
-        <div class="sub-address">Sathla • Mawana • Meerut</div>
-    </div>
+    <a href="https://github.io" class="home-btn">🏠</a>
+    <h1 class="academy-name">Syllabus Repository</h1>
 </header>
 
 <div class="wrapper">
     <div class="portal-grid">
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">Nursery</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">L.K.G</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">U.K.G</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">Class I</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">Class II</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">Class III</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">Class IV</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">Class V</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">Class VI</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">Class VII</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">Class VIII</div></a>
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">Class IX</div></a>
-        <!-- NEW CLASS X BUTTON -->
-        <a href="https://google.com" target="_blank" class="elite-card"><div class="card-label">Class X</div></a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">Nursery</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">L.K.G</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">U.K.G</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">Class I</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">Class II</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">Class III</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">Class IV</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">Class V</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">Class VI</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">Class VII</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">Class VIII</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">Class IX</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-label">Class X</div>
+            <div class="arrow-indicator">❯</div>
+        </a>
     </div>
 </div>
+
+<footer>
+    <div style="font-family: 'Cinzel', serif; font-size: 1.2rem; margin-bottom: 8px; color: var(--accent);">M.J.M.I National Academy</div>
+    <div style="font-size: 0.8rem; opacity: 0.8; letter-spacing: 1px;">Sathla, Mawana, Meerut • © 2026</div>
+</footer>
 
 </body>
 </html>

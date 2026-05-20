@@ -2,116 +2,162 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.J.M.I National Academy | Secured Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>M.J.M.I Academy | Gaming Elite Portal</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
-        :root { --primary: #001529; --accent: #C5A059; --bg-body: #F4F7F6; --white: #ffffff; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background-color: var(--bg-body); overflow-x: hidden; }
-
-        header {
-            background: linear-gradient(rgba(0, 21, 41, 0.4), rgba(0, 21, 41, 0.4)), url('image1.jpg');
-            background-size: cover; background-position: center; padding: 45px 5%; 
-            border-bottom: 5px solid var(--accent); display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap;
+        :root { 
+            --primary: #001529; 
+            --accent: #C5A059; 
+            --white: #ffffff; 
+            --bg-body: #f0f2f5;
         }
-        .academy-logo { width: 85px; height: 85px; border-radius: 15px; border: 3px solid var(--accent); cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .header-text-container { text-align: left; }
-        .academy-name { font-family: 'Cinzel', serif; font-size: clamp(1.2rem, 4.5vw, 2.5rem); margin: 0; color: var(--white); text-transform: uppercase; line-height: 1.2; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
-        .sub-address { color: var(--accent); font-size: 0.8rem; letter-spacing: 2px; font-weight: 700; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
-
-        @media (max-width: 768px) {
-            header { flex-direction: column; text-align: center; padding: 35px 10px; }
-            .header-text-container { text-align: center; }
-            .academy-name { font-size: 1.1rem; white-space: normal; }
-        }
-
-        .sticky-nav { position: sticky; top: 0; background: white; z-index: 1000; border-bottom: 1px solid #ddd; padding: 12px 5%; }
-        .search-box-container { width: 100%; position: relative; }
-        .elite-search { width: 100%; padding: 12px 15px 12px 40px; border-radius: 12px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 0.9rem; }
-        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); opacity: 0.4; }
-
-        .wrapper { max-width: 1200px; margin: 25px auto; padding: 0 15px; }
-        .portal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
         
-        @media (max-width: 480px) {
-            .portal-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        html, body { height: 100%; margin: 0; }
+        body { 
+            display: flex; flex-direction: column; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--bg-body); 
+            overflow-x: hidden; 
         }
 
+        /* Compact Header */
+        header {
+            position: relative; height: 140px; flex-shrink: 0;
+            background: url('image1.jpg') center/cover no-repeat; 
+            display: flex; align-items: center; justify-content: center; 
+            border-bottom: 4px solid var(--accent);
+        }
+        header::before { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.3); }
+
+        .header-content { position: relative; z-index: 2; text-align: center; width: 95%; }
+        .academy-name {
+            font-family: 'Cinzel', serif; font-size: clamp(1rem, 4.2vw, 2.2rem);
+            color: #fff; margin: 0; text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.9);
+        }
+        .sub-address {
+            color: var(--accent); font-size: 0.7rem; letter-spacing: 2px;
+            font-weight: 700; margin-top: 5px; text-transform: uppercase;
+        }
+
+        .logo-container { position: absolute; top: 10px; left: 10px; z-index: 10; }
+        .academy-logo { width: 45px; height: 45px; border-radius: 10px; border: 2px solid var(--accent); cursor: pointer; }
+
+        /* Full-Width Wrapper (No Side White Space) */
+        .wrapper { 
+            flex: 1 0 auto; 
+            width: 100%; 
+            padding: 20px 10px; /* Minimal side padding for Edge-to-Edge feel */
+        }
+
+        /* GAMING STYLE DASHBOARD GRID */
+        .portal-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+        }
+        
         .elite-card { 
-            background: var(--white); padding: 30px 15px; text-decoration: none; 
-            border: 1px solid #eee; border-bottom: 4px solid #e0e0e0; 
-            display: flex; flex-direction: column; align-items: center; 
-            transition: all 0.2s ease; border-radius: 18px; text-align: center;
-            position: relative; cursor: pointer;
+            background: var(--white); 
+            padding: 30px 15px; 
+            text-decoration: none; 
+            border-radius: 20px;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.05); 
+            box-shadow: 0 4px 15px rgba(0, 21, 41, 0.06); 
+            position: relative;
+            overflow: hidden;
         }
-        .elite-card:active { transform: scale(0.95); background: #f0f0f0; }
-        .card-glyph { font-size: 2.2rem; margin-bottom: 10px; }
-        .card-label { color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.3px; line-height: 1.2; }
 
-        .card-locked { opacity: 0.75; }
-        .card-locked::after { content: '🔒'; position: absolute; top: 10px; right: 10px; font-size: 0.9rem; opacity: 0.6; }
+        /* Gaming Glow & Pinch Effect */
+        .elite-card:active { 
+            transform: scale(0.92) translateY(2px); 
+            background: #fafafa;
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(197, 160, 89, 0.3);
+        }
 
-        #passModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; justify-content: center; align-items: center; }
-        .modal-box { background: white; padding: 30px; border-radius: 20px; text-align: center; border-top: 6px solid var(--accent); width: 90%; max-width: 350px; }
-        .modal-box input { padding: 15px; width: 100%; max-width: 180px; font-size: 1.8rem; text-align: center; letter-spacing: 8px; border: 2px solid #eee; margin: 20px 0; border-radius: 10px; outline: none; }
-        .modal-box button { background: var(--primary); color: var(--accent); padding: 15px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; }
+        .elite-card::after { 
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; 
+            background: linear-gradient(90deg, transparent, var(--accent), transparent); 
+            opacity: 0.6;
+        }
+
+        .card-glyph { font-size: 2.3rem; margin-bottom: 12px; transition: 0.2s; }
+        .elite-card:active .card-glyph { transform: scale(0.85); }
+
+        .card-label { 
+            color: var(--primary); font-weight: 800; text-transform: uppercase; 
+            font-size: 0.72rem; text-align: center; line-height: 1.2; letter-spacing: 0.5px;
+        }
+
+        .card-locked::before { content: '🔒'; position: absolute; top: 10px; right: 10px; font-size: 0.8rem; opacity: 0.3; }
+        /* Modal & Security Styling */
+        #passModal { display: none; position: fixed; inset: 0; background: rgba(0, 21, 41, 0.85); backdrop-filter: blur(12px); z-index: 9999; justify-content: center; align-items: center; }
+        .modal-box { background: #fff; padding: 35px 25px; border-radius: 30px; text-align: center; width: 90%; max-width: 340px; border-top: 6px solid var(--accent); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+        .modal-box input { padding: 15px; width: 100%; max-width: 180px; font-size: 1.8rem; font-weight: 700; text-align: center; letter-spacing: 6px; border: 2px solid #f0f0f0; margin: 20px 0; border-radius: 18px; outline: none; background: #fafafa; }
+        .modal-box button { background: var(--primary); color: var(--accent); padding: 18px; border: none; border-radius: 18px; font-weight: 800; width: 100%; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
+        .modal-box button:active { transform: scale(0.95); }
     </style>
 </head>
 <body>
 
 <div id="passModal">
     <div class="modal-box">
-        <h3 id="modalTitle" style="margin:0; font-family:'Cinzel', serif;">Security Access</h3>
-        <p id="modalDesc" style="font-size: 0.8rem; color: #666; margin-top: 5px;">Authorization Required</p>
-        <input type="password" id="passInput" maxlength="4" autofocus> <br>
+        <h3 id="modalTitle" style="margin:0; font-family:'Cinzel', serif; color: var(--primary);">System Access</h3>
+        <input type="password" id="passInput" maxlength="4" autofocus placeholder="••••"> <br>
         <button onclick="verifyAccess()">Unlock Now</button>
-        <button onclick="closeModal()" style="background:#f4f4f4; color:#666; margin-top:10px; font-size: 0.75rem; border:none; padding:10px; border-radius:8px; width:100%;">Cancel</button>
+        <button onclick="closeModal()" style="background:transparent; color:#bbb; margin-top:10px; border:none; width:100%; cursor:pointer; font-size: 0.8rem;">Dismiss</button>
     </div>
 </div>
 
 <header>
-    <img src="image2.jpg" alt="Logo" class="academy-logo" onclick="masterLoginTrigger()">
-    <div class="header-text-container">
+    <div class="logo-container">
+        <img src="image2.jpg" alt="Logo" class="academy-logo" onclick="masterLoginTrigger()">
+    </div>
+    <div class="header-content">
         <h1 class="academy-name">M.J.M.I National Academy</h1>
         <div class="sub-address">Sathla • Mawana • Meerut</div>
     </div>
 </header>
 
-<div class="sticky-nav">
-    <div class="search-box-container">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="siteSearch" class="elite-search" placeholder="Search Portal..." onkeyup="filterContent()">
-    </div>
-</div>
-
 <div class="wrapper">
     <div id="main-dashboard" class="portal-grid">
-        <!-- Locked Buttons -->
+        
+        <!-- Position 1: Admission (Locked) -->
         <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'dashboard', 'admission')" class="elite-card card-locked">
-            <div class="card-glyph">🏛️</div><div class="card-label">Admission Form</div>
+            <div class="card-glyph">🏛️</div>
+            <div class="card-label">Admission Form</div>
         </a>
-        
-        <!-- UNLOCKED Syllabus Button -->
+
+        <!-- Position 2: Syllabus (Unlocked) -->
         <a href="syllabus.html" class="elite-card">
-            <div class="card-glyph">📜</div><div class="card-label">Syllabus</div>
+            <div class="card-glyph">📜</div>
+            <div class="card-label">Syllabus Repo</div>
         </a>
         
-        <!-- Locked Buttons -->
+        <!-- Other Gaming VIP Buttons -->
         <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'dashboard', 'exams')" class="elite-card card-locked">
-            <div class="card-glyph">🖊️</div><div class="card-label">Exams</div>
+            <div class="card-glyph">🖊️</div><div class="card-label">Exams Portal</div>
         </a>
         
         <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'dashboard', 'library')" class="elite-card card-locked">
-            <div class="card-glyph">📖</div><div class="card-label">Library</div>
+            <div class="card-glyph">📖</div><div class="card-label">Digital Library</div>
         </a>
         
         <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'dashboard', 'results')" class="elite-card card-locked">
-            <div class="card-glyph">📊</div><div class="card-label">Results</div>
+            <div class="card-glyph">📊</div><div class="card-label">Result Engine</div>
         </a>
         
         <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'dashboard', 'timetable')" class="elite-card card-locked">
-            <div class="card-glyph">🗓️</div><div class="card-label">Time Table</div>
+            <div class="card-glyph">🗓️</div><div class="card-label">Master Timetable</div>
         </a>
         
         <a href="https://google.com" target="_blank" onclick="return cardAuthCheck(event, this, 'dashboard', 'skill')" class="elite-card card-locked">
@@ -123,21 +169,24 @@
         </a>
     </div>
 </div>
-<footer style="background: var(--primary); padding: 40px 20px; text-align: center; color: var(--white); border-top: 5px solid var(--accent); margin-top: 50px;">
-    <div style="font-family: 'Cinzel', serif; font-size: clamp(1rem, 4vw, 1.5rem); margin-bottom: 8px; color: var(--accent);">M.J.M.I National Academy</div>
-    <div style="font-size: 0.8rem; opacity: 0.7; letter-spacing: 1px;">Sathla, Mawana, Meerut • © 2026</div>
+<!-- SYNCED CLEAN FOOTER (Syllabus Style) -->
+<footer style="background: var(--primary); padding: 50px 20px; text-align: center; color: var(--white); border-top: 5px solid var(--accent); flex-shrink: 0; margin-top: 30px;">
+    <div style="font-family: 'Cinzel', serif; font-size: 1.3rem; margin-bottom: 8px; color: var(--accent); letter-spacing: 1px;">M.J.M.I National Academy</div>
+    <div style="font-size: 0.85rem; opacity: 0.8; letter-spacing: 1px; line-height: 1.8;">Sathla, Mawana, Meerut • © 2026</div>
 </footer>
 
 <script src="config.js"></script>
 <script>
     let activeAuth = null;
 
+    // Master Access via Logo click
     function masterLoginTrigger() {
         activeAuth = { type: 'MASTER', pass: CONFIG.master_key };
-        document.getElementById('modalTitle').innerText = "Admin Portal";
+        document.getElementById('modalTitle').innerText = "System Master";
         openModal();
     }
 
+    // Gaming Card Security Check
     function cardAuthCheck(evt, element, section, key) {
         if (element.classList.contains('card-locked')) {
             evt.preventDefault();
@@ -156,32 +205,29 @@
     function closeModal() { 
         document.getElementById('passModal').style.display = 'none'; 
         document.getElementById('passInput').value = ''; 
+        activeAuth = null;
     }
 
     function verifyAccess() {
         const input = document.getElementById('passInput').value;
+        
         if (activeAuth.type === 'MASTER') {
             if (input === CONFIG.master_key) { 
                 document.querySelectorAll('.card-locked').forEach(el => el.classList.remove('card-locked'));
-                alert("🔓 Master Access Granted"); 
+                alert("🔓 All Systems Operational"); 
                 closeModal(); 
-            } else { alert("Invalid Key"); }
+            } else { alert("Access Denied"); }
             return;
         }
 
         if (input === activeAuth.pass) {
             activeAuth.element.classList.remove('card-locked');
-            activeAuth.element.click();
+            activeAuth.element.click(); // Redirects to Google or camp.html
             closeModal();
-        } else { alert("Access Denied"); }
-    }
-
-    function filterContent() {
-        const q = document.getElementById('siteSearch').value.toLowerCase();
-        const activeGrid = document.querySelector('.portal-grid');
-        Array.from(activeGrid.getElementsByClassName('elite-card')).forEach(card => {
-            card.style.display = card.innerText.toLowerCase().includes(q) ? "flex" : "none";
-        });
+        } else {
+            alert("🛑 Incorrect Access Key");
+            document.getElementById('passInput').value = '';
+        }
     }
 </script>
 </body>
