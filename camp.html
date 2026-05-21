@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Camp | M.J.M.I Elite</title>
+    <title>Camp Desk | M.J.M.I National Academy</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root { 
@@ -20,99 +20,99 @@
             overflow-x: hidden; 
         }
 
-        /* Same Minimal Header as Syllabus */
+        /* --- Header: Syllabus Style --- */
         header {
             position: relative; height: 110px; flex-shrink: 0;
-            background: url('image1.jpg') center/cover no-repeat; 
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('image1.jpg') center/cover no-repeat; 
             display: flex; align-items: center; justify-content: center; 
             border-bottom: 4px solid var(--accent);
         }
-        header::before { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.45); }
         .academy-name { 
             position: relative; z-index: 2; font-family: 'Cinzel', serif; 
             font-size: 1.1rem; color: #fff; text-transform: uppercase; letter-spacing: 1.5px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
-
         .home-btn { position: absolute; top: 12px; right: 15px; z-index: 10; color: #fff; text-decoration: none; font-size: 1.2rem; }
 
-        /* Wrapper for Sleek Row Style */
-        .wrapper { flex: 1 0 auto; width: 100%; max-width: 500px; margin: 0 auto; padding: 25px 15px; }
+        /* --- Wrapper & Grid: Old Camp Style --- */
+        .wrapper { flex: 1 0 auto; width: 100%; max-width: 1200px; margin: 0 auto; padding: 30px 15px; }
         
-        .portal-grid { display: flex; flex-direction: column; gap: 10px; }
+        .portal-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+            gap: 15px; 
+        }
+        
+        @media (max-width: 480px) {
+            .portal-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        }
 
-        /* Sleek VIP Slab Buttons (Matching Syllabus) */
+        /* --- Buttons: Old Camp Box Style --- */
         .elite-card { 
             background: var(--white); 
-            padding: 18px 25px; 
+            padding: 30px 15px; 
             text-decoration: none; 
-            border-radius: 12px;
+            border-radius: 18px;
             display: flex; 
-            justify-content: space-between; 
+            flex-direction: column;
             align-items: center; 
+            justify-content: center;
             transition: all 0.2s ease;
-            border-left: 4px solid var(--accent);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            border-right: 1px solid rgba(0,0,0,0.02);
-            border-top: 1px solid rgba(0,0,0,0.02);
+            border-bottom: 4px solid #e0e0e0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            text-align: center;
         }
 
-        /* Haptic Animation */
         .elite-card:active { 
-            transform: scale(0.97); 
-            background: #fdfdfd;
-            border-color: var(--primary);
+            transform: scale(0.95); 
+            background: #f0f0f0;
+            border-bottom-color: var(--accent);
         }
+
+        .card-glyph { font-size: 2.5rem; margin-bottom: 12px; }
 
         .card-label { 
             color: var(--primary); 
             font-weight: 700; 
             text-transform: uppercase; 
-            font-size: 0.85rem; 
-            letter-spacing: 0.8px; 
+            font-size: 0.75rem; 
+            letter-spacing: 0.5px; 
         }
 
-        .arrow-indicator { 
-            color: var(--accent); 
-            font-size: 1rem; 
-            opacity: 0.6;
-            font-weight: 900;
-        }
-
-        /* ELITE PROFESSIONAL FOOTER - SYNCED */
+        /* --- Footer: Syllabus Style --- */
         footer { 
             flex-shrink: 0;
             background: var(--primary); padding: 45px 20px; 
             text-align: center; color: #fff; border-top: 5px solid var(--accent); 
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="https://github.io" class="home-btn">🏠</a>
-    <h1 class="academy-name">Camp</h1>
+    <a href="index.html" class="home-btn">🏠</a>
+    <h1 class="academy-name">Camp Desk</h1>
 </header>
 
 <div class="wrapper">
     <div class="portal-grid">
-        <!-- Sleek Media Gallery Row -->
+        <!-- Purane Grid Buttons -->
         <a href="https://google.com" target="_blank" class="elite-card">
+            <div class="card-glyph">📸</div>
             <div class="card-label">Media Gallery</div>
-            <div class="arrow-indicator">❯</div>
         </a>
-        
-        <!-- Sleek Tour Row -->
+
         <a href="https://google.com" target="_blank" class="elite-card">
-            <div class="card-label">Tour</div>
-            <div class="arrow-indicator">❯</div>
+            <div class="card-glyph">🎬</div>
+            <div class="card-label">Virtual Tour</div>
         </a>
     </div>
 </div>
 
 <footer>
-    <div style="font-family: 'Cinzel', serif; font-size: 1.2rem; margin-bottom: 8px; color: var(--accent); letter-spacing: 1px;">M.J.M.I National Academy</div>
-    <div style="font-size: 0.8rem; opacity: 0.8; letter-spacing: 1px; line-height: 1.8;">Sathla, Mawana, Meerut • © 2026</div>
+    <div style="font-family: 'Cinzel', serif; font-size: 1.2rem; margin-bottom: 8px; color: var(--accent);">M.J.M.I National Academy</div>
+    <div style="font-size: 0.8rem; opacity: 0.8; letter-spacing: 1px;">Sathla, Mawana, Meerut • © 2026</div>
 </footer>
 
 </body>
