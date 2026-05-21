@@ -2,111 +2,122 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landscape Assignment Viewer</title>
+    <!-- ज़ूम के लिए लाइब्रेरी -->
+    <script src="https://unpkg.com"></script>
     <style>
-        /* बेसिक पेज सेटअप */
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #1a1a1a;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow: hidden; /* पेज स्क्रॉल बंद */
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            font-family: sans-serif;
+            overflow: hidden; /* बाहर स्क्रॉल बंद */
         }
 
-        /* इमेज कंटेनर जो ज़ूम को संभालेगा */
-        .zoom-container {
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        /* ज़ूम के लिए जरूरी रैपर */
+        .pinch-zoom-wrapper {
             width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: auto; /* ज़ूम होने पर स्क्रॉल करने के लिए */
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            background: white;
         }
 
         #assignmentImg {
-            max-width: 90%;
-            max-height: 90%;
-            transition: transform 0.1s ease;
+            width: 100%;
             display: block;
         }
 
-        /* छोटा फ्लोटिंग बटन (कौने में) */
-        .fs-icon-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 123, 255, 0.85);
+        /* पुराना बड़ा बटन स्टाइल */
+        .fs-button {
+            margin-top: 25px;
+            padding: 20px;
+            font-size: 20px;
+            font-weight: bold;
             color: white;
+            background-color: #007bff;
             border: none;
-            border-radius: 12px;
-            font-size: 24px;
+            border-radius: 10px;
+            width: 100%;
             cursor: pointer;
-            z-index: 9999;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* फुल स्क्रीन के अंदर की सेटिंग */
+        :fullscreen .pinch-zoom-wrapper {
+            width: 100vw;
+            height: 100vh;
+            background: black;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-
-        /* फुल स्क्रीन मोड के लिए स्पेसिफिक स्टाइल */
-        :fullscreen #assignmentImg {
-            max-width: 100vw;
-            max-height: 100vh;
-            object-fit: contain;
         }
         
-        :-webkit-full-screen #assignmentImg {
-            max-width: 100vw;
-            max-height: 100vh;
+        :fullscreen #assignmentImg {
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
         }
     </style>
 </head>
 <body>
 
-    <div class="zoom-container">
-        <img id="assignmentImg" src="Nursery.png" alt="Assignment">
+    <div class="container">
+        <div id="zoomElement" class="pinch-zoom-wrapper">
+            <img id="assignmentImg" src="Nursery.png" alt="Assignment">
+        </div>
+
+        <!-- आपका पुराना बड़ा बटन -->
+        <button class="fs-button" onclick="goLandscapeFull()">Full Screen (Landscape)</button>
     </div>
 
-    <!-- छोटा बटन कौने में -->
-    <button class="fs-icon-btn" onclick="startImmersiveMode()">
-        ⛶
-    </button>
-
     <script>
-        async function startImmersiveMode() {
-            const docElm = document.documentElement;
+        // ज़ूम इंजन सेटअप (यह फुल स्क्रीन में भी काम करेगा)
+        const el = document.querySelector('#zoomElement');
+        const pz = new PinchZoom(el, {
+            draggableUnzoomed: false,
+            minZoom: 1,
+            maxZoom: 5
+        });
+
+        async function goLandscapeFull() {
+            const container = document.documentElement; // पूरी स्क्रीन को फुल करना
 
             try {
-                // 1. फुल स्क्रीन रिक्वेस्ट करना
-                if (docElm.requestFullscreen) {
-                    await docElm.requestFullscreen();
-                } else if (docElm.webkitRequestFullscreen) {
-                    await docElm.webkitRequestFullscreen();
+                // 1. फुल स्क्रीन एक्टिवेट करना
+                if (container.requestFullscreen) {
+                    await container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    await container.webkitRequestFullscreen();
                 }
 
-                // 2. लैंडस्केप मोड को 'Force' लॉक करना
-                // यह यूजर को फोन सीधा करने पर भी पोर्ट्रेट में जाने नहीं देगा
+                // 2. लैंडस्केप मोड लॉक करना
                 if (screen.orientation && screen.orientation.lock) {
                     await screen.orientation.lock('landscape');
-                } else if (screen.lockOrientation) {
-                    screen.lockOrientation('landscape');
                 }
             } catch (err) {
-                console.error("Landscape Lock Error: ", err);
-                alert("Landscape lock के लिए कृपया Chrome ब्राउज़र का उपयोग करें।");
+                console.warn("Landscape lock not supported on this device.");
             }
         }
 
-        // मोबाइल पर पिंच ज़ूम को बेहतर बनाने के लिए बेसिक टच इवेंट्स (Browser default handling)
-        // नोट: ज्यादातर आधुनिक मोबाइल ब्राउज़र फुल स्क्रीन में पिंच-ज़ूम को ऑटोमैटिक सपोर्ट करते हैं।
+        // फुल स्क्रीन से बाहर आने पर ओरिएंटेशन अनलॉक करना (Optional)
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement && screen.orientation && screen.orientation.unlock) {
+                screen.orientation.unlock();
+            }
+        });
     </script>
 
 </body>
