@@ -2,93 +2,111 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.J.M.I National Academy - Assignment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes">
+    <title>Landscape Assignment Viewer</title>
     <style>
-        body {
+        /* बेसिक पेज सेटअप */
+        body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a1a1a;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            background-color: #eef2f3;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* पेज स्क्रॉल बंद */
         }
 
-        .container {
-            text-align: center;
-            width: 90%;
-            max-width: 500px;
-        }
-
-        img {
+        /* इमेज कंटेनर जो ज़ूम को संभालेगा */
+        .zoom-container {
             width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            background-color: white;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto; /* ज़ूम होने पर स्क्रॉल करने के लिए */
         }
 
-        .fs-button {
-            margin-top: 30px;
-            padding: 18px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #ffffff;
-            background: linear-gradient(135deg, #007bff, #0056b3);
+        #assignmentImg {
+            max-width: 90%;
+            max-height: 90%;
+            transition: transform 0.1s ease;
+            display: block;
+        }
+
+        /* छोटा फ्लोटिंग बटन (कौने में) */
+        .fs-icon-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 123, 255, 0.85);
+            color: white;
             border: none;
-            border-radius: 50px;
-            width: 100%;
+            border-radius: 12px;
+            font-size: 24px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,123,255,0.3);
-            transition: transform 0.2s;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .fs-button:active {
-            transform: scale(0.98);
-        }
-
-        /* फुल स्क्रीन सेटिंग */
-        :-webkit-full-screen img {
-            width: 100vw;
-            height: 100vh;
+        /* फुल स्क्रीन मोड के लिए स्पेसिफिक स्टाइल */
+        :fullscreen #assignmentImg {
+            max-width: 100vw;
+            max-height: 100vh;
             object-fit: contain;
-            background-color: #000;
+        }
+        
+        :-webkit-full-screen #assignmentImg {
+            max-width: 100vw;
+            max-height: 100vh;
+            object-fit: contain;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2 style="color: #333;">Vacation Assignment</h2>
-        
-        <!-- आपकी इमेज -->
-        <img id="assignmentImg" src="Nursery.png" alt="Summer Vacation Assignment">
-
-        <!-- लैंडस्केप बटन -->
-        <button class="fs-button" onclick="goFullScreen()">Full Screen Mode</button>
+    <div class="zoom-container">
+        <img id="assignmentImg" src="Nursery.png" alt="Assignment">
     </div>
 
+    <!-- छोटा बटन कौने में -->
+    <button class="fs-icon-btn" onclick="startImmersiveMode()">
+        ⛶
+    </button>
+
     <script>
-        function goFullScreen() {
-            const img = document.getElementById("assignmentImg");
+        async function startImmersiveMode() {
+            const docElm = document.documentElement;
 
-            // फुल स्क्रीन रिक्वेस्ट
-            if (img.requestFullscreen) {
-                img.requestFullscreen();
-            } else if (img.webkitRequestFullscreen) {
-                img.webkitRequestFullscreen();
-            }
+            try {
+                // 1. फुल स्क्रीन रिक्वेस्ट करना
+                if (docElm.requestFullscreen) {
+                    await docElm.requestFullscreen();
+                } else if (docElm.webkitRequestFullscreen) {
+                    await docElm.webkitRequestFullscreen();
+                }
 
-            // लैंडस्केप मोड में घुमाना (Android/Chrome के लिए)
-            if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('landscape').catch(err => {
-                    console.log("Orientation lock not supported");
-                });
+                // 2. लैंडस्केप मोड को 'Force' लॉक करना
+                // यह यूजर को फोन सीधा करने पर भी पोर्ट्रेट में जाने नहीं देगा
+                if (screen.orientation && screen.orientation.lock) {
+                    await screen.orientation.lock('landscape');
+                } else if (screen.lockOrientation) {
+                    screen.lockOrientation('landscape');
+                }
+            } catch (err) {
+                console.error("Landscape Lock Error: ", err);
+                alert("Landscape lock के लिए कृपया Chrome ब्राउज़र का उपयोग करें।");
             }
         }
+
+        // मोबाइल पर पिंच ज़ूम को बेहतर बनाने के लिए बेसिक टच इवेंट्स (Browser default handling)
+        // नोट: ज्यादातर आधुनिक मोबाइल ब्राउज़र फुल स्क्रीन में पिंच-ज़ूम को ऑटोमैटिक सपोर्ट करते हैं।
     </script>
 
 </body>
