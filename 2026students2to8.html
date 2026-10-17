@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 2026-2027 - Esports Console</title>
+    <!-- Google Fonts for Ultra-Modern Sci-Fi Display -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Fix backdrop visibility: density reduced to 0.65 for enhanced graphic clear view */
+            background: linear-gradient(rgba(7, 7, 18, 0.65), rgba(7, 7, 18, 0.65)), url('image02.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            font-family: 'Oxanium', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 40px 20px 120px 20px; /* Extra bottom padding for floating media bar */
+        }
+
+        /* ADVANCED FEATURE 1: SPLIT SCI-FI GATE SYSTEM */
+        .gate-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            display: flex;
+        }
+
+        .gate-half {
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 10, 24, 0.98), rgba(10, 10, 24, 0.98)), url('image02.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            pointer-events: auto;
+        }
+
+        .gate-left {
+            border-right: 2px solid rgba(0, 242, 254, 0.4);
+            box-shadow: inset -20px 0 40px rgba(0, 242, 254, 0.05);
+            transform-origin: left;
+        }
+
+        .gate-right {
+            border-left: 2px solid rgba(255, 0, 127, 0.4);
+            box-shadow: inset 20px 0 40px rgba(255, 0, 127, 0.05);
+            transform-origin: right;
+        }
+
+        /* Centralized Interactive Dock Box */
+        .gaming-book {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translate(-50%, -50%);
+            background: rgba(13, 13, 28, 0.95);
+            padding: 45px;
+            border-radius: 12px;
+            text-align: center;
+            width: 380px;
+            border: 1px solid #00f2fe;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.25);
+            backdrop-filter: blur(15px);
+            z-index: 10000;
+            transition: all 0.5s ease;
+        }
+
+        .gate-right .gaming-book {
+            display: none; /* Kept only on one node to prevent double render */
+        }
+
+        .gaming-book h2 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, #ff007f, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px;
+            margin-bottom: 35px;
+        }
+
+        .open-btn {
+            background: transparent;
+            color: #ff007f;
+            border: 2px solid #ff007f;
+            padding: 12px 55px;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.2);
+        }
+
+        .open-btn:hover {
+            background: #ff007f;
+            color: #05050c;
+            box-shadow: 0 0 35px #ff007f;
+        }
+
+        /* Gate Trigger Animation Execution States */
+        .gate-wrapper.open-active .gate-left { transform: translateX(-100%); }
+        .gate-wrapper.open-active .gate-right { transform: translateX(100%); }
+        .gate-wrapper.open-active .gaming-book { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+        /* ==================== PART 2: MAIN PAGE STYLING ==================== */
+        
+        .main-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+        }
+
+        .main-wrapper.show-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Top Window Hub (Using image01.jpg) */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, rgba(10, 10, 25, 0.5), rgba(7, 7, 18, 0.6)), url('image01.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 50px 30px;
+            border-radius: 16px;
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.25);
+            border: 2px solid rgba(0, 242, 254, 0.6);
+            width: 100%;
+            max-width: 950px;
+        }
+
+        .header h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #00f2fe, #ff007f, #39ff14);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 6px;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.3));
+            margin-bottom: 25px;
+        }
+
+        .class-select {
+            background: rgba(5, 5, 12, 0.9);
+            color: #00f2fe;
+            border: 1px solid #00f2fe;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            outline: none;
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .class-select:hover, .class-select:focus {
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+        }
+
+        .class-select option {
+            background: #0d0d1c;
+            color: #fff;
+            font-family: 'Oxanium', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .grid-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 950px;
+            padding: 10px 0;
+        }
+
+        /* Long Horizontal Wide Cards Setup with entrance animations */
+        .card {
+            background: rgba(14, 14, 32, 0.8);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+            backdrop-filter: blur(8px);
+            padding: 25px 40px;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            /* Cascading entrance properties handled dynamically by keyframes */
+            animation: cardEntrance 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+
+        /* ADVANCED FEATURE 3: HOLOGRAM MESH GRID ACCENT ON HOVER */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+            background-size: 8px 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateX(8px) scale(1.01) !important;
+            background: rgba(20, 20, 44, 0.9);
+        }
+
+        .card-glow-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+        }
+
+        /* FIXED COLUMNS ALIGNMENT TABLE */
+        .col-name { width: 45%; text-align: left; }
+        .col-class { width: 35%; text-align: left; }
+        .col-roll { width: 20%; text-align: left; }
+
+        .student-data-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 2;
+        }
+
+        .data-label {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            opacity: 0.6;
+            color: #fff;
+        }
+        .student-name {
+            font-family: 'Oxanium', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .student-class, .student-roll {
+            font-family: 'Oxanium', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                padding: 20px 25px;
+            }
+            .col-name, .col-class, .col-roll { width: 100%; text-align: left; }
+            .header h1 { font-size: 2.2rem; }
+        }
+
+        /* High-Definition Neon Color Filters */
+        .neon-cyan { border: 1px solid rgba(0, 242, 254, 0.3); }
+        .neon-cyan:hover { box-shadow: 0 0 25px rgba(0, 242, 254, 0.4); border-color: #00f2fe; }
+        .neon-cyan .card-glow-bar { background: #00f2fe; }
+        .neon-cyan .student-name, .neon-cyan .student-class, .neon-cyan .student-roll { color: #00f2fe; text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
+
+        .neon-pink { border: 1px solid rgba(255, 0, 127, 0.3); }
+        .neon-pink:hover { box-shadow: 0 0 25px rgba(255, 0, 127, 0.4); border-color: #ff007f; }
+        .neon-pink .card-glow-bar { background: #ff007f; }
+        .neon-pink .student-name, .neon-pink .student-class, .neon-pink .student-roll { color: #ff007f; text-shadow: 0 0 10px rgba(255, 0, 127, 0.5); }
+
+        .neon-green { border: 1px solid rgba(57, 255, 20, 0.3); }
+        .neon-green:hover { box-shadow: 0 0 25px rgba(57, 255, 20, 0.4); border-color: #39ff14; }
+        .neon-green .card-glow-bar { background: #39ff14; }
+        .neon-green .student-name, .neon-green .student-class, .neon-green .student-roll { color: #39ff14; text-shadow: 0 0 10px rgba(57, 255, 20, 0.5); }
+
+        .neon-purple { border: 1px solid rgba(176, 38, 255, 0.3); }
+        .neon-purple:hover { box-shadow: 0 0 25px rgba(176, 38, 255, 0.4); border-color: #b026ff; }
+        .neon-purple .card-glow-bar { background: #b026ff; }
+        .neon-purple .student-name, .neon-purple .student-class, .neon-purple .student-roll { color: #b026ff; text-shadow: 0 0 10px rgba(176, 38, 255, 0.5); }
+
+        .neon-orange { border: 1px solid rgba(255, 103, 0, 0.3); }
+        .neon-orange:hover { box-shadow: 0 0 25px rgba(255, 103, 0, 0.4); border-color: #ff6700; }
+        .neon-orange .card-glow-bar { background: #ff6700; }
+        .neon-orange .student-name, .neon-orange .student-class, .neon-orange .student-roll { color: #ff6700; text-shadow: 0 0 10px rgba(255, 103, 0, 0.5); }
+
+        /* ADVANCED FEATURE 2: BOTTOM FLOATING ADVANCED MUSIC CONTROLLER */
+        .media-dock {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 850px;
+            background: rgba(10, 10, 24, 0.95);
+            border: 1px solid rgba(255, 0, 127, 0.5);
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.25);
+            border-radius: 12px;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(15px);
+            z-index: 9998;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .media-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .media-btn {
+            background: transparent;
+            border: 1px solid #00f2fe;
+            color: #00f2fe;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .media-btn:hover {
+            background: #00f2fe;
+            color: #0a0a18;
+            box-shadow: 0 0 15px #00f2fe;
+        }
+
+        .music-select {
+            background: rgba(5, 5, 12, 0.9);
+            color: #ff007f;
+            border: 1px solid #ff007f;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* LIVE NEON EQUALIZER VISUALIZER SYSTEM */
+        .visualizer-box {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 30px;
+            width: 80px;
+        }
+
+        .v-bar {
+            width: 5px;
+            height: 5px;
+            background: #ff007f;
+            box-shadow: 0 0 8px #ff007f;
+            border-radius: 2px;
+            transition: height 0.15s ease;
+        }
+
+        /* Core Animation Keyframes */
+        @keyframes cardEntrance {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes visualizerDance {
+            0% { height: 6px; }
+            50% { height: 28px; }
+            100% { height: 10px; }
+        }
+        
+        .visualizer-box.playing .v-bar:nth-child(1) { animation: visualizerDance 0.6s infinite alternate 0.1s; }
+        .visualizer-box.playing .v-bar:nth-child(2) { animation: visualizerDance 0.4s infinite alternate 0.3s; }
+        .visualizer-box.playing .v-bar:nth-child(3) { animation: visualizerDance 0.7s infinite alternate 0.0s; }
+        .visualizer-box.playing .v-bar:nth-child(4) { animation: visualizerDance 0.5s infinite alternate 0.4s; }
+        .visualizer-box.playing .v-bar:nth-child(5) { animation: visualizerDance 0.6s infinite alternate 0.2s; }
+    </style>
+</head>
+<body>
+
+    <!-- Background Audio Loop Element -->
+    <audio id="bgAudio" src="music01.mp3" loop></audio>
+
+    <!-- ADVANCED SCI-FI SPLIT DOOR ENTRY PANEL -->
+    <div class="gate-wrapper" id="gateSystem">
+        <div class="gate-half gate-left">
+            <div class="gaming-book">
+                <h2>2026-2027</h2>
+                <button class="open-btn" onclick="initializeLounge()">OPEN</button>
+            </div>
+        </div>
+        <div class="gate-half gate-right"></div>
+    </div>
+
+    <!-- MAIN DASHBOARD BODY HUB -->
+    <div class="main-wrapper" id="mainContent">
+        <div class="header">
+            <h1>2026-2027</h1>
+            <div class="controls-row">
+                <select class="class-select" id="classDropdown" onchange="switchClassLayout()">
+                    <option value="class2" selected>Class 2nd</option>
+                    <option value="class3">Class 3rd</option>
+                    <option value="class4">Class 4th</option>
+                    <option value="class5">Class 5th</option>
+                    <option value="class6">Class 6th</option>
+                    <option value="class7">Class 7th</option>
+                    <option value="class8">Class 8th</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Live Staggered Grid Target Container -->
+        <div class="grid-container" id="cardsDisplayContainer"></div>
+    </div>
+
+    <!-- FLOATING ADVANCED MEDIA CONSOLE CONTROLLER -->
+    <div class="media-dock" id="mediaDock" style="display: none;">
+        <div class="media-controls">
+            <button class="media-btn" onclick="skipTrack(-1)">◀ PREV</button>
+            <button class="media-btn" onclick="toggleAudio()" id="playPauseBtn">⏸ PAUSE</button>
+            <button class="media-btn" onclick="skipTrack(1)">NEXT 	▶</button>
+            <select class="music-select" id="musicDropdown" onchange="switchMusicTrack()">
+                <option value="music01.mp3" selected>Music 01</option>
+                <option value="music02.mp3">Music 02</option>
+                <option value="music03.mp3">Music 03</option>
+                <option value="music04.mp3">Music 04</option>
+                <option value="music05.mp3">Music 05</option>
+            </select>
+        </div>
+        
+        <!-- Live Neon Equalizer Waves -->
+        <div class="visualizer-box playing" id="visualizer">
+            <div class="v-bar"></div>
+            <div class="v-bar"></div>
+            <div class="v-bar"></div>
+            <div class="v-bar"></div>
+            <div class="v-bar"></div>
+        </div>
+    </div>
+
+    <script>
+        // Centralized Multi-Class Student Database Structure
+        const studentsDatabase = {
+            class2: [
+                { name: "Ahad", class: "Class 2nd", roll: "01", theme: "neon-cyan" },
+                { name: "Arman", class: "Class 2nd", roll: "02", theme: "neon-pink" },
+                { name: "Subhan", class: "Class 2nd", roll: "03", theme: "neon-green" },
+                { name: "Adeena", class: "Class 2nd", roll: "04", theme: "neon-purple" },
+                { name: "Aayat", class: "Class 2nd", roll: "05", theme: "neon-orange" },
+                { name: "Inaya", class: "Class 2nd", roll: "06", theme: "neon-cyan" },
+                { name: "Arham", class: "Class 2nd", roll: "07", theme: "neon-pink" },
+                { name: "Afiya", class: "Class 2nd", roll: "08", theme: "neon-green" },
+                { name: "Arhaan", class: "Class 2nd", roll: "09", theme: "neon-purple" },
+                { name: "Aahad", class: "Class 2nd", roll: "10", theme: "neon-orange" },
+                { name: "Fatima", class: "Class 2nd", roll: "11", theme: "neon-cyan" },
+                { name: "Tasneem", class: "Class 2nd", roll: "12", theme: "neon-pink" },
+                { name: "Samayra", class: "Class 2nd", roll: "13", theme: "neon-green" },
+                { name: "Alishba", class: "Class 2nd", roll: "14", theme: "neon-purple" },
+                { name: "Aaliya", class: "Class 2nd", roll: "15", theme: "neon-orange" },
+                { name: "Arsh", class: "Class 2nd", roll: "16", theme: "neon-cyan" },
+                { name: "Anikha", class: "Class 2nd", roll: "17", theme: "neon-pink" },
+                { name: "Qadir", class: "Class 2nd", roll: "18", theme: "neon-green" },
+                { name: "Nazar Mohd", class: "Class 2nd", roll: "19", theme: "neon-purple" },
+                { name: "Noor Mohd", class: "Class 2nd", roll: "20", theme: "neon-orange" },
+                { name: "Saista", class: "Class 2nd", roll: "21", theme: "neon-cyan" },
+                { name: "Aatika", class: "Class 2nd", roll: "22", theme: "neon-pink" },
+                { name: "Anabiya", class: "Class 2nd", roll: "23", theme: "neon-green" },
+                { name: "Nayra", class: "Class 2nd", roll: "24", theme: "neon-purple" },
+                { name: "Adeena", class: "Class 2nd", roll: "25", theme: "neon-orange" }
+            ],
+            class3: [
+                { name: "Adeela", class: "Class 3rd", roll: "01", theme: "neon-cyan" },
+                { name: "Adeeba", class: "Class 3rd", roll: "02", theme: "neon-pink" },
+                { name: "Aamna", class: "Class 3rd", roll: "03", theme: "neon-green" },
+                { name: "Fayha", class: "Class 3rd", roll: "04", theme: "neon-purple" },
+                { name: "Iqra", class: "Class 3rd", roll: "05", theme: "neon-orange" },
+                { name: "Humaira", class: "Class 3rd", roll: "06", theme: "neon-cyan" },
+                { name: "Ayra", class: "Class 3rd", roll: "07", theme: "neon-pink" },
+                { name: "Nabeeha", class: "Class 3rd", roll: "08", theme: "neon-green" },
+                { name: "Nabiha", class: "Class 3rd", roll: "09", theme: "neon-purple" },
+                { name: "Sheeza", class: "Class 3rd", roll: "10", theme: "neon-orange" },
+                { name: "Aafraham", class: "Class 3rd", roll: "11", theme: "neon-cyan" },
+                { name: "Arahaan", class: "Class 3rd", roll: "12", theme: "neon-pink" },
+                { name: "Aadil", class: "Class 3rd", roll: "13", theme: "neon-green" },
+                { name: "Faiz", class: "Class 3rd", roll: "14", theme: "neon-purple" },
+                { name: "Faiz", class: "Class 3rd", roll: "15", theme: "neon-orange" },
+                { name: "Ismail", class: "Class 3rd", roll: "16", theme: "neon-cyan" },
+                { name: "Abu Rafe", class: "Class 3rd", roll: "17", theme: "neon-pink" },
+                { name: "Samad", class: "Class 3rd", roll: "18", theme: "neon-green" },
+                { name: "Ayan", class: "Class 3rd", roll: "19", theme: "neon-purple" }
+            ],
+            class4: [
+                { name: "Huda", class: "Class 4th", roll: "01", theme: "neon-cyan" },
+                { name: "Zainab", class: "Class 4th", roll: "02", theme: "neon-pink" },
+                { name: "Sakha", class: "Class 4th", roll: "03", theme: "neon-green" },
+                { name: "Hadiya", class: "Class 4th", roll: "04", theme: "neon-purple" },
+                { name: "Umayra", class: "Class 4th", roll: "05", theme: "neon-orange" },
+                { name: "Hamdan", class: "Class 4th", roll: "06", theme: "neon-cyan" },
+                { name: "Hasan", class: "Class 4th", roll: "07", theme: "neon-pink" },
+                { name: "Hifzan", class: "Class 4th", roll: "08", theme: "neon-green" },
+                { name: "Arbab", class: "Class 4th", roll: "09", theme: "neon-purple" },
+                { name: "Adnan", class: "Class 4th", roll: "10", theme: "neon-orange" }
+            ],
+            class5: [
+                { name: "Aleena", class: "Class 5th", roll: "01", theme: "neon-cyan" },
+                { name: "Aleena", class: "Class 5th", roll: "02", theme: "neon-pink" },
+                { name: "Ayza", class: "Class 5th", roll: "03", theme: "neon-green" },
+                { name: "Fatima", class: "Class 5th", roll: "04", theme: "neon-purple" },
+                { name: "Izaina", class: "Class 5th", roll: "05", theme: "neon-orange" },
+                { name: "Shariya", class: "Class 5th", roll: "06", theme: "neon-cyan" },
+                { name: "Hafeez", class: "Class 5th", roll: "07", theme: "neon-pink" },
+                { name: "Kaif", class: "Class 5th", roll: "08", theme: "neon-green" },
+                { name: "Nabeel", class: "Class 5th", roll: "09", theme: "neon-purple" },
+                { name: "Akdas", class: "Class 5th", roll: "10", theme: "neon-orange" },
+                { name: "Daniyal", class: "Class 5th", roll: "11", theme: "neon-cyan" },
+                { name: "Afifullah", class: "Class 5th", roll: "12", theme: "neon-pink" },
+                { name: "Rushan", class: "Class 5th", roll: "13", theme: "neon-green" },
+                { name: "Sufiyan", class: "Class 5th", roll: "14", theme: "neon-purple" },
+                { name: "Arman", class: "Class 5th", roll: "15", theme: "neon-orange" }
+            ],
+            class6: [
+                { name: "Aysha", class: "Class 6th", roll: "01", theme: "neon-cyan" },
+                { name: "Areeha", class: "Class 6th", roll: "02", theme: "neon-pink" },
+                { name: "Mariyam", class: "Class 6th", roll: "03", theme: "neon-green" },
+                { name: "Rafiya", class: "Class 6th", roll: "04", theme: "neon-purple" },
+                { name: "Shifra", class: "Class 6th", roll: "05", theme: "neon-orange" },
+                { name: "Fatima", class: "Class 6th", roll: "06", theme: "neon-cyan" },
+                { name: "Ahad", class: "Class 6th", roll: "07", theme: "neon-pink" },
+                { name: "Arman", class: "Class 6th", roll: "08", theme: "neon-green" },
+                { name: "Aafiyan", class: "Class 6th", roll: "09", theme: "neon-purple" },
+                { name: "Ubaid", class: "Class 6th", roll: "10", theme: "neon-orange" },
+                { name: "Khatib", class: "Class 6th", roll: "11", theme: "neon-cyan" },
+                { name: "Raheem", class: "Class 6th", roll: "12", theme: "neon-pink" }
+            ],
+            class7: [
+                { name: "Atiya", class: "Class 7th", roll: "01", theme: "neon-cyan" },
+                { name: "Aliza", class: "Class 7th", roll: "02", theme: "neon-pink" },
+                { name: "Arfa", class: "Class 7th", roll: "03", theme: "neon-green" },
+                { name: "Rifa", class: "Class 7th", roll: "04", theme: "neon-purple" },
+                { name: "Shibra", class: "Class 7th", roll: "05", theme: "neon-orange" },
+                { name: "Zunaira", class: "Class 7th", roll: "06", theme: "neon-cyan" },
+                { name: "Umar", class: "Class 7th", roll: "07", theme: "neon-pink" },
+                { name: "Farhan", class: "Class 7th", roll: "08", theme: "neon-green" },
+                { name: "Muneer", class: "Class 7th", roll: "09", theme: "neon-purple" },
+                { name: "Razi", class: "Class 7th", roll: "10", theme: "neon-orange" },
+                { name: "Tanzeel", class: "Class 7th", roll: "11", theme: "neon-cyan" },
+                { name: "Shammur", class: "Class 7th", roll: "12", theme: "neon-pink" },
+                { name: "Ishan", class: "Class 7th", roll: "13", theme: "neon-green" },
+                { name: "Shahad", class: "Class 7th", roll: "14", theme: "neon-purple" }
+            ],
+            class8: [
+                { name: "Armish", class: "Class 8th", roll: "01", theme: "neon-cyan" },
+                { name: "Arfiya", class: "Class 8th", roll: "02", theme: "neon-pink" },
+                { name: "Alishba", class: "Class 8th", roll: "03", theme: "neon-green" },
+                { name: "Aalima", class: "Class 8th", roll: "04", theme: "neon-purple" },
+                { name: "Fiza", class: "Class 8th", roll: "05", theme: "neon-orange" },
+                { name: "Riza", class: "Class 8th", roll: "06", theme: "neon-cyan" },
+                { name: "Shibra", class: "Class 8th", roll: "07", theme: "neon-pink" },
+                { name: "Umra", class: "Class 8th", roll: "08", theme: "neon-green" },
+                { name: "Zumar", class: "Class 8th", roll: "09", theme: "neon-purple" },
+                { name: "Adeel", class: "Class 8th", roll: "10", theme: "neon-orange" },
+                { name: "Adeel", class: "Class 8th", roll: "11", theme: "neon-cyan" },
+                { name: "Fahad", class: "Class 8th", roll: "12", theme: "neon-pink" },
+                { name: "Faraz", class: "Class 8th", roll: "13", theme: "neon-green" },
+                { name: "Huzaifa", class: "Class 8th", roll: "14", theme: "neon-purple" },
+                { name: "Rushan", class: "Class 8th", roll: "15", theme: "neon-orange" },
+                { name: "Uzain", class: "Class 8th", roll: "16", theme: "neon-cyan" }
+            ]
+        };
+
+        // Track state settings for playlist controller engine
+        const tracksPlaylist = ["music01.mp3", "music02.mp3", "music03.mp3", "music04.mp3", "music05.mp3"];
+        let currentTrackIndex = 0;
+
+        // Core UI DOM elements lookup caching
+        var audio = document.getElementById("bgAudio");
+        var gateSystem = document.getElementById("gateSystem");
+        var mainContent = document.getElementById("mainContent");
+        var container = document.getElementById("cardsDisplayContainer");
+        var mediaDock = document.getElementById("mediaDock");
+        var playPauseBtn = document.getElementById("playPauseBtn");
+        var visualizer = document.getElementById("visualizer");
+        var musicDropdown = document.getElementById("musicDropdown");
+        // ADVANCED TRANSITION 1: LOCK SQUAD BREAK GATE ENGINE CONTROL
+        function initializeLounge() {
+            // Fires split screen door shift mechanism smoothly
+            gateSystem.classList.add("open-active");
+            
+            // Displays main dashboard layout wrapper frame
+            mainContent.classList.add("show-content");
+            
+            // Triggers floating media horizontal deck dashboard panel onto views
+            mediaDock.style.display = "flex";
+            
+            // Primary bootup dataset loading trigger (Renders Class 2nd initially)
+            renderStudents("class2");
+            
+            // Initiates music stream track loop background play execution
+            audio.play().then(function() {
+                updateVisualizerState(true);
+            }).catch(function(error) {
+                console.log("Media autolaunch prevented by security block protocols:", error);
+                updateVisualizerState(false);
+            });
+        }
+
+        // CARDS ENTRANCE: Renders cards from left to right with cascading entrance delay
+        function renderStudents(classKey) {
+            const currentRoster = studentsDatabase[classKey];
+            container.innerHTML = ""; // Flushes previous matrix data completely
+
+            currentRoster.forEach((student, index) => {
+                const cardHTML = `
+                    <div class="card ${student.theme}" style="animation-delay: ${index * 0.05}s;">
+                        <div class="card-glow-bar"></div>
+                        <div class="col-name student-data-item">
+                            <div class="data-label">NAME</div>
+                            <div class="student-name">${student.name}</div>
+                        </div>
+                        <div class="col-class student-data-item">
+                            <div class="data-label">CLASS</div>
+                            <div class="student-class">${student.class}</div>
+                        </div>
+                        <div class="col-roll student-data-item">
+                            <div class="data-label">ROLL NO</div>
+                            <div class="student-roll">${student.roll}</div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        // Action trigger function fired on Select Class Dropdown switch change
+        function switchClassLayout() {
+            const dropdown = document.getElementById("classDropdown");
+            renderStudents(dropdown.value);
+        }
+
+        // DYNAMIC MUSIC ENGINE PRO: Handles Play Pause Action States
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.innerHTML = "⏸ PAUSE";
+                updateVisualizerState(true);
+            } else {
+                audio.pause();
+                playPauseBtn.innerHTML = "▶ PLAY";
+                updateVisualizerState(false);
+            }
+        }
+
+        // Equalizer waves status controller element updates
+        function updateVisualizerState(isPlaying) {
+            if (isPlaying) {
+                visualizer.classList.add("playing");
+            } else {
+                visualizer.classList.remove("playing");
+            }
+        }
+
+        // Manual drop dropdown audio select playlist swapper logic
+        function switchMusicTrack() {
+            const trackPath = musicDropdown.value;
+            currentTrackIndex = tracksPlaylist.indexOf(trackPath);
+            loadAndPlayTrack(trackPath);
+        }
+
+        // Playlist skip sequential trackers logic controls (PREV / NEXT actions)
+        function skipTrack(direction) {
+            currentTrackIndex += direction;
+            
+            // Loop boundaries correction rules
+            if (currentTrackIndex >= tracksPlaylist.length) currentTrackIndex = 0;
+            if (currentTrackIndex < 0) currentTrackIndex = tracksPlaylist.length - 1;
+            
+            const targetedTrack = tracksPlaylist[currentTrackIndex];
+            musicDropdown.value = targetedTrack; // Syncs state back onto select overlay element box
+            loadAndPlayTrack(targetedTrack);
+        }
+
+        // Resets node stream loader sources pipeline directly
+        function loadAndPlayTrack(trackSource) {
+            audio.pause();
+            audio.setAttribute("src", trackSource);
+            audio.load();
+            
+            audio.play().then(function() {
+                playPauseBtn.innerHTML = "⏸ PAUSE";
+                updateVisualizerState(true);
+            }).catch(function(err) {
+                console.log("Track stream processing fault:", err);
+                updateVisualizerState(false);
+            });
+        }
+    </script>
+</body>
+</html>
