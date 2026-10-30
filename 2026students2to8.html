@@ -30,78 +30,16 @@
             overflow: hidden;
         }
 
-        /* BACKGROUND DYNAMIC GLOW WAVE ACCENTS */
-        .ambient-glow-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .glow-wave-left {
-            position: absolute;
-            top: 0;
-            left: -300px;
-            width: 500px;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0, 242, 254, 0.16) 0%, transparent 70%);
-            animation: floatGlowLeft 8s ease-in-out infinite alternate;
-        }
-
-        .glow-wave-right {
-            position: absolute;
-            top: 0;
-            right: -300px;
-            width: 500px;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 0, 127, 0.16) 0%, transparent 70%);
-            animation: floatGlowRight 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes floatGlowLeft {
-            0% { transform: translateX(0) scale(1); opacity: 0.5; }
-            100% { transform: translateX(250px) scale(1.1); opacity: 0.8; }
-        }
-
-        @keyframes floatGlowRight {
-            0% { transform: translateX(0) scale(1); opacity: 0.5; }
-            100% { transform: translateX(-250px) scale(1.1); opacity: 0.8; }
-        }
-
-        /* INTRO OVERLAY ROOM SETUP */
-        .intro-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 1s ease, visibility 1s ease;
-        }
-
-        .intro-container.hide-intro {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        /* SCI-FI GATE SYSTEM LAYERED BEHIND CONTENT BUT IN FRONT OF DASHBOARD ON INTRO */
+        /* SCI-FI GATE SYSTEM */
         .gate-wrapper {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 2;
-            display: flex;
+            z-index: 9999;
             pointer-events: none;
+            display: flex;
         }
 
         .gate-half {
@@ -110,47 +48,41 @@
             background: linear-gradient(rgba(10, 10, 24, 0.98), rgba(10, 10, 24, 0.98)), url('image02.jpg');
             background-size: cover;
             background-position: center;
+            position: relative;
             transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            pointer-events: auto;
         }
 
         .gate-left {
             border-right: 2px solid rgba(0, 242, 254, 0.4);
             box-shadow: inset -20px 0 40px rgba(0, 242, 254, 0.05);
+            transform-origin: left;
         }
 
         .gate-right {
             border-left: 2px solid rgba(255, 0, 127, 0.4);
             box-shadow: inset 20px 0 40px rgba(255, 0, 127, 0.05);
+            transform-origin: right;
         }
-
-        /* OPEN ACTIVATION LOGIC */
-        .intro-container.open-active .gate-left { transform: translateX(-100%); }
-        .intro-container.open-active .gate-right { transform: translateX(100%); }
-        .intro-container.open-active .intro-content-mesh { opacity: 0; transform: scale(0.85); pointer-events: none; }
-
-        /* INTRO MESH HOLDS BOOK AND PREMIUM WIDGETS SAFELY */
-        .intro-content-mesh {
-            position: relative;
-            z-index: 5;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0 40px;
-            transition: all 0.8s ease;
-        }
-
         .gaming-book {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translate(-50%, -50%);
             background: rgba(13, 13, 28, 0.95);
             padding: 45px;
             border-radius: 12px;
             text-align: center;
             width: 380px;
-            border: 1px solid #ff007f;
-            box-shadow: 0 0 35px rgba(255, 0, 127, 0.3);
+            border: 1px solid #00f2fe;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.25);
             backdrop-filter: blur(15px);
+            z-index: 10000;
             transition: all 0.5s ease;
+        }
+
+        .gate-right .gaming-book {
+            display: none;
         }
 
         .gaming-book h2 {
@@ -181,67 +113,10 @@
             box-shadow: 0 0 35px #ff007f;
         }
 
-        /* MATCHING INSIDE CARD DESIGN FOR SIDE WIDGETS */
-        .premium-side-widget {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(14, 14, 32, 0.85);
-            border-radius: 12px;
-            padding: 25px 35px;
-            backdrop-filter: blur(8px);
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            min-width: 210px;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .widget-glow-bar {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            width: 4px;
-        }
-
-        .widget-left-side {
-            left: 5%;
-            border: 1px solid rgba(0, 242, 254, 0.3);
-        }
-        .widget-left-side .widget-glow-bar { left: 0; background: #00f2fe; }
-        .widget-left-side:hover { box-shadow: 0 0 25px rgba(0, 242, 254, 0.4); border-color: #00f2fe; transform: translateY(-50%) scale(1.02); }
-
-        .widget-right-side {
-            right: 5%;
-            border: 1px solid rgba(255, 0, 127, 0.3);
-        }
-        .widget-right-side .widget-glow-bar { left: 0; background: #ff007f; }
-        .widget-right-side:hover { box-shadow: 0 0 25px rgba(255, 0, 127, 0.4); border-color: #ff007f; transform: translateY(-50%) scale(1.02); }
-
-        .widget-label {
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            opacity: 0.6;
-            color: #fff;
-            text-transform: uppercase;
-        }
-
-        .widget-main-value {
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-        .widget-left-side .widget-main-value { color: #00f2fe; text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
-        .widget-right-side .widget-main-value { color: #ff007f; text-shadow: 0 0 10px rgba(255, 0, 127, 0.5); }
-
-        .widget-sub-value {
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #fff;
-            opacity: 0.9;
-        }
-
+        .gate-wrapper.open-active .gate-left { transform: translateX(-100%); }
+        .gate-wrapper.open-active .gate-right { transform: translateX(100%); }
+        .gate-wrapper.open-active .gaming-book { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+        
         /* MAIN DASHBOARD PANEL */
         .main-wrapper {
             display: flex;
@@ -251,8 +126,6 @@
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
-            z-index: 10;
-            position: relative;
         }
 
         .main-wrapper.show-content {
@@ -416,7 +289,7 @@
             transition: all 0.3s ease;
         }
 
-        /* POPUP NEON LABELS SETUP */
+        /* POPUP MULTI-COLOR NEON BUTTONS */
         .btn-neon-green { border: 1px solid rgba(57, 255, 20, 0.4); color: #39ff14; box-shadow: 0 0 10px rgba(57, 255, 20, 0.05); }
         .btn-neon-green:hover { background: linear-gradient(135deg, rgba(57, 255, 20, 0.2), transparent); border-color: #39ff14; box-shadow: 0 0 25px rgba(57, 255, 20, 0.5); transform: translateY(-4px); }
 
@@ -452,7 +325,9 @@
             transition: color 0.3s;
         }
 
-        .close-matrix-btn:hover { color: #ff007f; }
+        .close-matrix-btn:hover {
+            color: #ff007f;
+        }
 
         .stats-panel-row {
             display: flex;
@@ -466,24 +341,27 @@
         .counter-box {
             background: rgba(5, 5, 12, 0.9);
             border: 1px solid #ff007f;
-            padding: 10px 20px;
+            padding: 10px 25px;
             border-radius: 4px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 700;
             letter-spacing: 2px;
             color: #ff007f;
             box-shadow: 0 0 12px rgba(255, 0, 127, 0.15);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             transition: all 0.3s ease;
         }
         
-        .counter-box:hover { box-shadow: 0 0 20px rgba(255, 0, 127, 0.5); }
+        .counter-box:hover {
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+        }
+
         .counter-box span {
             color: #39ff14;
             text-shadow: 0 0 8px rgba(57, 255, 20, 0.6);
-            font-size: 0.85rem;
+            font-size: 0.95rem;
         }
 
         .audio-toast {
@@ -506,7 +384,9 @@
             pointer-events: none;
         }
 
-        .audio-toast.show { top: 25px; }
+        .audio-toast.show {
+            top: 25px;
+        }
         .grid-container {
             display: flex;
             flex-direction: column;
@@ -516,7 +396,7 @@
             padding: 10px 0;
         }
 
-        /* PREMIUM SLIDE UP HOVER ON CARDS */
+        /* PREMIUM HOVER CARD INTERACTION (OUR SINGLE BEST FEATURE CHOSEN FOR PREMIUM FEEL) */
         .card {
             background: rgba(14, 14, 32, 0.8);
             border-radius: 12px;
@@ -530,8 +410,8 @@
             width: 100%;
             opacity: 0;
             transform: translateY(30px);
-            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.3s ease, box-shadow 0.3s ease;
             animation: cardEntrance 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .card::before {
@@ -550,8 +430,10 @@
         }
 
         .card:hover::before { opacity: 1; }
-        .card:hover { transform: translateY(-5px) scale(1.005) !important; background: rgba(20, 20, 44, 0.9); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-        
+        .card:hover { 
+            transform: translateY(-4px) scale(1.015) !important; 
+            background: rgba(22, 22, 48, 0.95); 
+        }
         .card-glow-bar { position: absolute; left: 0; top: 0; height: 100%; width: 4px; }
         .col-name { width: 45%; text-align: left; }
         .col-class { width: 35%; text-align: left; }
@@ -560,12 +442,6 @@
         .data-label { font-size: 0.7rem; letter-spacing: 2px; opacity: 0.6; color: #fff; }
         .student-name { font-size: 1.8rem; font-weight: 800; letter-spacing: 1px; }
         .student-class, .student-roll { font-size: 1.4rem; font-weight: 700; letter-spacing: 1px; }
-
-        @media (max-width: 920px) {
-            .premium-side-widget { position: relative; top: unset; transform: unset; left: unset; right: unset; margin: 10px auto; width: 80%; max-width: 280px; justify-content: center; }
-            .intro-content-mesh { flex-direction: column; overflow-y: auto; padding: 40px 10px; gap: 20px; }
-            .gaming-book { order: 1; margin: 10px auto; }
-        }
 
         @media (max-width: 600px) {
             .card { flex-direction: column; align-items: flex-start; gap: 15px; padding: 20px 25px; }
@@ -579,27 +455,27 @@
         }
 
         .neon-cyan { border: 1px solid rgba(0, 242, 254, 0.3); }
-        .neon-cyan:hover { box-shadow: 0 0 25px rgba(0, 242, 254, 0.4); border-color: #00f2fe; }
+        .neon-cyan:hover { box-shadow: 0 0 25px rgba(0, 242, 254, 0.45); border-color: #00f2fe; }
         .neon-cyan .card-glow-bar { background: #00f2fe; }
         .neon-cyan .student-name, .neon-cyan .student-class, .neon-cyan .student-roll { color: #00f2fe; text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
 
         .neon-pink { border: 1px solid rgba(255, 0, 127, 0.3); }
-        .neon-pink:hover { box-shadow: 0 0 25px rgba(255, 0, 127, 0.4); border-color: #ff007f; }
+        .neon-pink:hover { box-shadow: 0 0 25px rgba(255, 0, 127, 0.45); border-color: #ff007f; }
         .neon-pink .card-glow-bar { background: #ff007f; }
         .neon-pink .student-name, .neon-pink .student-class, .neon-pink .student-roll { color: #ff007f; text-shadow: 0 0 10px rgba(255, 0, 127, 0.5); }
 
         .neon-green { border: 1px solid rgba(57, 255, 20, 0.3); }
-        .neon-green:hover { box-shadow: 0 0 25px rgba(57, 255, 20, 0.4); border-color: #39ff14; }
+        .neon-green:hover { box-shadow: 0 0 25px rgba(57, 255, 20, 0.45); border-color: #39ff14; }
         .neon-green .card-glow-bar { background: #39ff14; }
         .neon-green .student-name, .neon-green .student-class, .neon-green .student-roll { color: #39ff14; text-shadow: 0 0 10px rgba(57, 255, 20, 0.5); }
 
         .neon-purple { border: 1px solid rgba(176, 38, 255, 0.3); }
-        .neon-purple:hover { box-shadow: 0 0 25px rgba(176, 38, 255, 0.4); border-color: #b026ff; }
+        .neon-purple:hover { box-shadow: 0 0 25px rgba(176, 38, 255, 0.45); border-color: #b026ff; }
         .neon-purple .card-glow-bar { background: #b026ff; }
         .neon-purple .student-name, .neon-purple .student-class, .neon-purple .student-roll { color: #b026ff; text-shadow: 0 0 10px rgba(176, 38, 255, 0.5); }
 
         .neon-orange { border: 1px solid rgba(255, 103, 0, 0.3); }
-        .neon-orange:hover { box-shadow: 0 0 25px rgba(255, 103, 0, 0.4); border-color: #ff6700; }
+        .neon-orange:hover { box-shadow: 0 0 25px rgba(255, 103, 0, 0.45); border-color: #ff6700; }
         .neon-orange .card-glow-bar { background: #ff6700; }
         .neon-orange .student-name, .neon-orange .student-class, .neon-orange .student-roll { color: #ff6700; text-shadow: 0 0 10px rgba(255, 103, 0, 0.5); }
 
@@ -619,7 +495,7 @@
             justify-content: space-between;
             align-items: center;
             backdrop-filter: blur(15px);
-            z-index: 9995;
+            z-index: 9998;
             flex-wrap: wrap;
             gap: 15px;
         }
@@ -648,37 +524,14 @@
         STATUS // NOW PLAYING: <span id="toastTrackName">MUSIC 01</span>
     </div>
 
-    <div class="ambient-glow-container">
-        <div class="glow-wave-left"></div>
-        <div class="glow-wave-right"></div>
-    </div>
-
-    <div class="intro-container" id="introContainer">
-        <div class="gate-wrapper" id="gateSystem">
-            <div class="gate-half gate-left"></div>
-            <div class="gate-half gate-right"></div>
-        </div>
-
-        <div class="intro-content-mesh">
-            <div class="premium-side-widget widget-left-side">
-                <div class="widget-glow-bar"></div>
-                <div class="widget-label">Live Clock</div>
-                <div class="widget-main-value" id="liveClockDisplay">00:00:00</div>
-                <div class="widget-sub-value" id="liveClockPeriod">PM</div>
-            </div>
-
+    <div class="gate-wrapper" id="gateSystem">
+        <div class="gate-half gate-left">
             <div class="gaming-book">
                 <h2>2026-2027</h2>
-                <button class="open-btn" onclick="initializeLounge()">WELCOME</button>
-            </div>
-
-            <div class="premium-side-widget widget-right-side">
-                <div class="widget-glow-bar"></div>
-                <div class="widget-label">Calendar</div>
-                <div class="widget-main-value" id="liveCalendarDay">00</div>
-                <div class="widget-sub-value" id="liveCalendarMonthYear">LOADING...</div>
+                <button class="open-btn" onclick="initializeLounge()">OPEN</button>
             </div>
         </div>
+        <div class="gate-half gate-right"></div>
     </div>
 
     <div class="main-wrapper" id="mainContent">
@@ -736,7 +589,6 @@
             <div class="v-bar"></div>
         </div>
     </div>
-
     <script>
         const studentsDatabase = {
             class2: [
@@ -871,6 +723,7 @@
         let globalActiveRoster = [];
 
         var audio = document.getElementById("bgAudio");
+        var gateSystem = document.getElementById("gateSystem");
         var mainContent = document.getElementById("mainContent");
         var container = document.getElementById("cardsDisplayContainer");
         var mediaDock = document.getElementById("mediaDock");
@@ -880,51 +733,17 @@
         var toast = document.getElementById("audioToast");
         var toastText = document.getElementById("toastTrackName");
         
-        function startLiveClockAndCalendar() {
-            function updateClock() {
-                const now = new Date();
-                let hours = now.getHours();
-                let minutes = now.getMinutes();
-                let seconds = now.getSeconds();
-                let ampm = hours >= 12 ? 'PM' : 'AM';
-                
-                hours = hours % 12;
-                hours = hours ? hours : 12;
-                minutes = minutes < 10 ? '0' + minutes : minutes;
-                seconds = seconds < 10 ? '0' + seconds : seconds;
-                hours = hours < 10 ? '0' + hours : hours;
-
-                document.getElementById("liveClockDisplay").innerText = `${hours}:${minutes}:${seconds}`;
-                document.getElementById("liveClockPeriod").innerText = ampm;
-
-                const day = now.getDate();
-                const monthsList = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
-                const month = monthsList[now.getMonth()];
-                const year = now.getFullYear();
-
-                document.getElementById("liveCalendarDay").innerText = day < 10 ? '0' + day : day;
-                document.getElementById("liveCalendarMonthYear").innerText = `${month} ${year}`;
-            }
-            setInterval(updateClock, 1000);
-            updateClock();
-        }
-
-        startLiveClockAndCalendar();
-
         function initializeLounge() {
-            document.getElementById("introContainer").classList.add("open-active");
-            setTimeout(() => {
-                document.getElementById("introContainer").classList.add("hide-intro");
-                mainContent.classList.add("show-content");
-                mediaDock.style.display = "flex";
-                renderStudents("all");
-            }, 1200);
+            gateSystem.classList.add("open-active");
+            mainContent.classList.add("show-content");
+            mediaDock.style.display = "flex";
+            renderStudents("all");
             
             audio.play().then(function() {
                 updateVisualizerState(true);
                 showAudioToast("MUSIC 01");
             }).catch(function(error) {
-                console.log("Audio block by sandbox permissions:", error);
+                console.log("Media block:", error);
                 updateVisualizerState(false);
             });
         }
@@ -934,8 +753,7 @@
             if (isOpen) { 
                 matrixOverlay.classList.add("active"); 
                 document.body.classList.add("modal-open");
-            } 
-            else { 
+            } else { 
                 matrixOverlay.classList.remove("active"); 
                 document.body.classList.remove("modal-open");
             }
